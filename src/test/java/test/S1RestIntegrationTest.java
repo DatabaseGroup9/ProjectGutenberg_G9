@@ -18,7 +18,7 @@ import test.utils.EmbeddedTomcat;
 public class S1RestIntegrationTest {
 
     private static final int SERVER_PORT = 9999;
-    private static final String APP_CONTEXT = "/dbtest";
+    private static final String APP_CONTEXT = "/dbtest"; 
     private static EmbeddedTomcat tomcat;
 
     public S1RestIntegrationTest() {
@@ -79,5 +79,7 @@ public class S1RestIntegrationTest {
                 .statusCode(400)
                 .body("error.message", is("Invalid City"));
     }
+    
+    //nothing to commit- testing ttravis
 
 }
