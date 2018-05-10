@@ -1,0 +1,42 @@
+<style>h2 {color: darkblue;}</style>
+<p style="margin-top: 10px;color:#105cb6;font-style: italic; font-size: large">PROJECT GUTENBERG: 
+    <i>Group 9</i>
+</p>
+
+<div>
+    <div class="row well">
+        <form class="navbar-form navbar-left" role="form" ng-submit="searchByCity()">
+            <div class="form-group">
+                <label>Select database:</label>
+                <!--<input type="text" style="width:10em;" placeholder="database" name="db" class="form-control" ng-model="db" required>-->
+                <select name="db" ng-model="db" required>
+                    <option value ="stub">stub</option>
+                    <option value ="mongodb">mongodb</option>
+                    <option value ="neo4j">neo4j</option>
+                </select>
+                <br><br>
+                <label>Search Books by City:</label>
+                <input type="text" style="width:10em;" placeholder="city" name="city" class="form-control" ng-model="toSearch">
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-success">Search</button>
+        </form>
+    </div>
+    <div class="row">
+        <table class="table" ng-if="books.length > 0">
+            <thead>
+            <th>Book Title</th>
+            <th>Author</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in books">
+                    <td>{{item.title}}</td><td>{{item.author}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="alert alert-warning" ng-if ="err != null">
+            <strong>ERROR: </strong> {{err.message}}
+        </div>
+    </div>
+</div>
