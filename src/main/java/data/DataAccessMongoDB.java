@@ -113,6 +113,37 @@ public class DataAccessMongoDB implements IDataAccessor {
         return null;
     }
 
+    public List<IBook> getBooksByAuthorName(String authorName) throws NotFoundExceptionMapper {
+        List<IBook> list = new ArrayList();
+
+        try {
+            List<IBook> books = new ArrayList();
+            ObjectMapper mapper = new ObjectMapper();
+            MongoDatabase database = con.getDatabase("cjs_db");
+            MongoCollection coll = database.getCollection("books");
+            FindIterable<Document> findIterable = coll.find(in("authors.name", authorName));
+            for (Document document : findIterable) {
+                String jsonStr = document.toJson();
+                System.out.println("THE JSON STRING IS " + jsonStr);
+                IBook b = mapper.readValue(jsonStr, Book.class);
+                printBook((Book) b);
+                books.add(b);
+            }
+
+            if (books.size() == 0) {
+                /*
+                 * TODO: Make error handling consistent across all implementations of IDataAccessor.
+                 * DataAccessNeo4J simply returns empty list, while MongoDB throws an exception.
+                 */
+                throw new NotFoundExceptionMapper("No Book Found");
+            }
+
+            return books;
+        } catch (Exception e) {
+            throw new NotFoundExceptionMapper(e.getMessage());
+        }
+    }
+
     //------------------------------------------------Run Once For Testing Locally-------------------------------------------------------------------------
     private static void populateWithTestData() {
         try {

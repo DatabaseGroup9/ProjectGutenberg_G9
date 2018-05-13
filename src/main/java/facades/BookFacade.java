@@ -49,6 +49,23 @@ public class BookFacade implements IBookFacade {
         }
     }
 
+    @Override
+    public List<IBook> getBooksByAuthorName(String author) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
+        author = author.trim();
+
+        if(!helper.checkValidCityInput(author)){
+            throw new InvalidInputExceptionMapper("Invalid Input");
+        }
+
+        try {
+            List<IBook> books = new ArrayList<>();
+            books = dataAccessFactory.getDataAccessor(this.database).getBooksByAuthorName(author);
+            return books;
+        } catch (NotFoundExceptionMapper e) {
+            throw e; //possible error from the DBAccessor - No Book Found
+        }
+    }
+
     public String getDatabase() {
         return database;
     }

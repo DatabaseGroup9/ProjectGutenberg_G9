@@ -9,9 +9,12 @@ import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
+import static org.neo4j.driver.v1.Values.parameters;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class DataAccessNeo4J implements IDataAccessor {
 
@@ -28,14 +31,12 @@ public class DataAccessNeo4J implements IDataAccessor {
 
         try {
             Driver driver = dbConnectorNeo4J.getDriver();
-            /**
-             * todo change to prepared statements for security reasons
-             */
-            String query = "MATCH (b:Book)-[r:MENTIONS ]-(c:City) WHERE LOWER(c.name) = LOWER(\"" + cityName + "\") RETURN b";
+
+            String query = "MATCH (b:Book)-[r:MENTIONS ]-(c:City) WHERE LOWER(c.name) = LOWER($cityName) RETURN b";
 
             Session session = driver.session();
 
-            StatementResult result = session.run(query);
+            StatementResult result = session.run(query, parameters("cityName", cityName));
 
             list = getResults(result);
             session.close();
@@ -58,18 +59,42 @@ public class DataAccessNeo4J implements IDataAccessor {
 
         try {
             Driver driver = dbConnectorNeo4J.getDriver();
-            /**
-             * todo change to prepared statements for security reasons
-             */
-            String query = "MATCH (b:Book)-[r:MENTIONS]->(c:City) WHERE LOWER(b.title) = LOWER(\"" + bookTitle + "\") RETURN c";
+
+            String query = "MATCH (b:Book)-[r:MENTIONS]->(c:City) WHERE LOWER(b.title) = LOWER($bookTitle) RETURN c";
 
             Session session = driver.session();
 
-            StatementResult result = session.run(query);
+            StatementResult result = session.run(query, parameters("bookTitle", bookTitle));
 
             list = getResultsCities(result);
             session.close();
 
+        } catch (Exception e) {
+            //if (DEBUG) e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<IBook> getBooksByAuthorName(String authorName) {
+        List<IBook> list = new ArrayList<>();
+
+        try {
+            Driver driver = dbConnectorNeo4J.getDriver();
+
+            String query = "MATCH (a:Author)-[r:AUTHORED ]-(b:Book) WHERE LOWER(a.name) = LOWER($authorName) RETURN b";
+
+            Session session = driver.session();
+
+            StatementResult result = session.run(query, parameters("authorName", authorName));
+
+            list = getResults(result);
+            session.close();
+
+        /*
+         * todo Clean up exception handling.
+         * Failing quietly on all exceptions is no good for debugging.
+         */
         } catch (Exception e) {
             //if (DEBUG) e.printStackTrace();
         }

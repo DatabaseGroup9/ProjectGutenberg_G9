@@ -5,8 +5,10 @@ import entity.Book;
 import httpErrors.NotFoundExceptionMapper;
 import interfaces.IBook;
 import interfaces.ICity;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DataAccessStub implements IDataAccessor {
@@ -67,5 +69,24 @@ public class DataAccessStub implements IDataAccessor {
         list.add(city2);
         list.add(city3);
         return list; // not yet implemented
+    }
+
+    public List<IBook> getBooksByAuthorName(String authorName) throws NotFoundExceptionMapper {
+        String[] notFound = new String[]{"J.K. Rowling", "Oprah Winfrey", "Stieg Larsson"};
+        if(Arrays.asList(notFound).contains(authorName)){
+            throw new NotFoundExceptionMapper("Author not found");
+        }
+
+        List<IBook> books = new ArrayList<>();
+
+        books.add(new Book("Autobiography of a Child", "Hannah Lynch"));
+        books.add(new Book("Miles Standish", "John S. C. Abbott"));
+        books.add(new Book("Stories of Symphonic Music", "Lawrence Gilman"));
+        books.add(new Book("Captain Billy's Whiz Bang, Vol. 2, No. 21, June, 1921 ", "Various"));
+        books.add(new Book("Rambles in Yucatan", "Benjamin Moore Norman"));
+        books.add(new Book("Alice's Adventures in Wonderland", "Lewis Carroll"));
+        books.add(new Book("Pride and Prejudice", "Jane Austen"));
+
+        return books.subList(0, authorName.length() < 6 ? authorName.length() : 6);
     }
 }
