@@ -8,8 +8,24 @@ app.config(['$routeProvider', function ($routeProvider) {
             controller: 'View2Ctrl'
         });
     }])
+app.service('markerCities', function () {
+    var property = new Array();
 
-app.controller('View2Ctrl', function ($scope, $http) {
+    return {
+        getProperty: function () {
+            return property;
+        },
+        setProperty: function (value) {
+            property = value;
+        },
+        addProperty: function (value) {
+            property.push(value);
+        }
+
+    };
+});
+
+app.controller('View2Ctrl', function ($scope, $http, markerCities) {
     $scope.searchByBookTitle = function () {
         $http({
             method: 'GET',
