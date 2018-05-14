@@ -32,6 +32,7 @@ public class Book {
             String json = new Gson().toJson(list);
             return json;
         } catch (Exception e) {
+            System.out.println("THROW FROM REST " + e.getMessage());
             throw e;
         }
 

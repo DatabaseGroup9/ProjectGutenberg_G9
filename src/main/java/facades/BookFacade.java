@@ -1,6 +1,5 @@
 package facades;
 
-import data.DataAccessFactory;
 import httpErrors.InvalidInputExceptionMapper;
 import httpErrors.NotFoundExceptionMapper;
 import interfaces.IDataAccessFactory;
@@ -9,7 +8,6 @@ import interfaces.IBookFacade;
 
 import java.util.ArrayList;
 import java.util.List;
-import interfaces.IDataAccessor;
 
 public class BookFacade implements IBookFacade {
 

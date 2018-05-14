@@ -45,9 +45,9 @@ app.controller('View2Ctrl', function ($scope, $http, markerCities) {
                 });
             });
         }, function errorCallback(response) {
-            console.log("ERROR FOUND::> " + response.data);
-            $scope.err = response.error;
+            console.log("ERROR FOUND s::> " + JSON.stringify(response));
             $scope.cities = null;
+            $scope.err = response.data.error;
         });
     };
 
