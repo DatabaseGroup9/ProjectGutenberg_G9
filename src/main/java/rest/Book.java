@@ -23,33 +23,12 @@ public class Book {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getBooks(@QueryParam("db") String db, @QueryParam("city") String city, @QueryParam("author") String author) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
-
-        /**
-         * todo make setting come from Http Headers?
-         */
-
+    @Path("city") //search by city
+    public String getBooksByCity(@QueryParam("db") String db, @QueryParam("city") String city) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
         try {
-//            IBookFacade bookFacade = new BookFacade(new DataAccessFactory(), "stub");
             IBookFacade facade = new BookFacade(new DataAccessFactory(), db);
-
             List<IBook> list;
-
-
-            /*  NOTE:
-             * We can't have two methods with signature getBooks(String, String)
-             * This way, city takes priority if provided. Bad?
-             * todo define behavior when both parameters are provided.
-             */
-            if(city != null && city.length() != 0) {
-                list = facade.getBooksByCityName(city);
-            } else if(author != null && author.length() != 0) {
-                list = facade.getBooksByAuthorName(author);
-            } else {
-                throw new NotFoundExceptionMapper("No search parameter provided [city/author].");
-            }
-
-
+            list = facade.getBooksByCityName(city);
             String json = new Gson().toJson(list);
             return json;
         } catch (Exception e) {
@@ -57,5 +36,22 @@ public class Book {
         }
 
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("author")
+    public String getBooksByAuthor(@QueryParam("db") String db, @QueryParam("author") String author) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
+        try {
+            IBookFacade facade = new BookFacade(new DataAccessFactory(), db);
+            List<IBook> list;
+            list = facade.getBooksByAuthorName(author);
+            String json = new Gson().toJson(list);
+            return json;
+        } catch (Exception e) {
+            throw e;
+        }
+    
+    }
+
 
 }

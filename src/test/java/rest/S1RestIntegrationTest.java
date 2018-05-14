@@ -1,4 +1,4 @@
-package test;
+package rest;
 
 import org.junit.BeforeClass;
 import io.restassured.RestAssured;
@@ -39,20 +39,21 @@ public class S1RestIntegrationTest {
         tomcat.stop();
     }
 
+//    @Ignore
     @Test
     public void testValidCityBooksFound() {
         given()
-                .queryParam("db", "stub")
+                .queryParam("db", "mongodb")
                 .queryParam("city", "Madrid")
                 .contentType("application/json")
                 .when()
-                .get("/api/book").then()
+                .get("/api/book/city").then()
                 .statusCode(200)
                 .body("size()", is(not(0)));
 
     }
  
-    @Ignore
+//    @Ignore
     @Test
     public void testValidCityNoBookFound() {
         given()
@@ -60,26 +61,25 @@ public class S1RestIntegrationTest {
                 .queryParam("city", "Lyngby")
                 .contentType("application/json")
                 .when()
-                .get("/api/book").then()
+                .get("/api/book/city").then()
                 .statusCode(400)
                 .body("error.message", is("No Book Found"));
 
     }
 
     
-    @Ignore
+//    @Ignore
     @Test
     public void testInvalidCityNull() {
         given()
-                .queryParam("db", "stub")
+                .queryParam("db", "mongodb")
                 .queryParam("city", "")
                 .contentType("application/json")
                 .when()
-                .get("/api/book").then()
+                .get("/api/book/city").then()
                 .statusCode(400)
-                .body("error.message", is("Invalid City"));
+                .body("error.message", is("Invalid Input"));
     }
     
-    //nothing to commit- testing ttravis
 
 }

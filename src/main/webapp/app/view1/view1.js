@@ -14,13 +14,13 @@ var app = angular.module('myApp.view1', ['ngRoute'])
             $scope.searchByCity = function () {
                 $http({
                     method: 'GET',
-                    url: 'api/book',
+                    url: 'api/book/city',
                     params: {city: $scope.toSearch, db: $scope.db}
                 }).then(function successCallback(response) {
                     $scope.books = response.data;
                     $scope.err = null;
                 }, function errorCallback(response) {
-                    console.log("ERROR FOUND s::> " + response.data);
+                    console.log("ERROR FOUND s::> " + response.toString());
                     $scope.err = response.error;
                     $scope.books = null;
                 });
