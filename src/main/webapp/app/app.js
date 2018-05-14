@@ -7,15 +7,19 @@ angular.module('myApp', [
   'ngAnimate',
   'angular-jwt',
   'ui.bootstrap',
+  'myApp.home',
   'myApp.view1',
   'myApp.view2',
+  'myApp.view3',
+  'myApp.view4',
+  'myApp.view5',
   'myApp.filters',
   'myApp.directives',
   'myApp.factories',
   'myApp.services'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
 
