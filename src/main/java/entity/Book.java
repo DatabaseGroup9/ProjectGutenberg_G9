@@ -19,7 +19,7 @@ public class Book implements IBook{
     String id;
     String title;
     String author;
-    List<City> cities;
+    List<ICity> cities;
     public Book(){
 
     }
@@ -27,7 +27,7 @@ public class Book implements IBook{
         this.title = title;
         this.author = author;
     }
-    public Book(String title, String author, List<City> cities){
+    public Book(String title, String author, List<ICity> cities){
         this.title = title;
         this.author = author;
         this.cities = cities;
@@ -49,7 +49,7 @@ public class Book implements IBook{
         this.author = author;
     }
 
-    public List<City> getCities() {
+    public List<ICity> getCities() {
         return cities;
     }
 
@@ -63,7 +63,7 @@ public class Book implements IBook{
         this.id = id;
     }
 
-    public void setCities(List<City> cities) {
+    public void setCities(List<ICity> cities) {
         this.cities = cities;
     }
 

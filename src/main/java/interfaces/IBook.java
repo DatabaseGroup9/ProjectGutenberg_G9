@@ -15,7 +15,8 @@ import java.util.List;
  */
 public interface IBook {
 
-  List<City>  getCities();
+  List<ICity>  getCities();
+  void  setCities(List<ICity> cities);
   String getId();
   void setId(String id);
   String getTitle();
