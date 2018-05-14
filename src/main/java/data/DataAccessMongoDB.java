@@ -9,6 +9,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;
 import static com.mongodb.client.model.Projections.elemMatch;
 import entity.Book;
@@ -49,7 +50,7 @@ public class DataAccessMongoDB implements IDataAccessor {
             ObjectMapper mapper = new ObjectMapper();
             MongoDatabase database = con.getDatabase("cjs_db");
             MongoCollection coll = database.getCollection("books");
-            FindIterable<Document> findIterable = coll.find(in("cities.name", cityName));
+            FindIterable<Document> findIterable = coll.find(in("cities.name", cityName)); 
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);
@@ -89,13 +90,14 @@ public class DataAccessMongoDB implements IDataAccessor {
             ObjectMapper mapper = new ObjectMapper();
             MongoDatabase database = con.getDatabase("cjs_db");
             MongoCollection coll = database.getCollection("books");
-            FindIterable<Document> findIterable = coll.find(in("books.title", bookTitle));
+            FindIterable<Document> findIterable = coll.find(eq("title", bookTitle)); 
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);
-                ICity c = mapper.readValue(jsonStr, City.class);
-                //printBook((Book) b);
-                cities.add(c);
+                IBook b = mapper.readValue(jsonStr, Book.class);
+                for (City c : b.getCities()) {
+                    cities.add(c);
+                }
             }
 
             if (cities.size() == 0) {

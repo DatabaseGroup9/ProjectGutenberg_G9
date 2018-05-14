@@ -9,10 +9,8 @@ import javax.servlet.ServletException;
 import org.apache.catalina.LifecycleException;
 import static org.hamcrest.Matchers.*;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertThat;
 import org.junit.Ignore;
 import org.junit.Test;
-import rest.Book;
 import test.utils.EmbeddedTomcat;
 
 public class S2RestIntegrationTest {
