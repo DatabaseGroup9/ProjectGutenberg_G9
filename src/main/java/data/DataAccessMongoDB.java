@@ -1,17 +1,12 @@
 package data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;
-import static com.mongodb.client.model.Projections.elemMatch;
 import entity.Book;
 import entity.City;
 import httpErrors.NotFoundExceptionMapper;
@@ -19,10 +14,7 @@ import interfaces.IBook;
 import interfaces.ICity;
 import interfaces.IDataAccessor;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bson.Document;
 
 /**
@@ -35,11 +27,9 @@ public class DataAccessMongoDB implements IDataAccessor {
     private DBConnectorMongoDB connector = null;
     private static MongoClient con = null;
 
-//    DB db = null;
     public DataAccessMongoDB() {
         this.connector = new DBConnectorMongoDB();
         this.con = connector.getConnection();
-//        this.db = con.getDB("cjs_db");
     }
 
     @Override
@@ -59,7 +49,7 @@ public class DataAccessMongoDB implements IDataAccessor {
                 books.add(b);
             }
 
-            if (books.size() == 0) {
+            if (books.isEmpty()) {
                 throw new NotFoundExceptionMapper("No Book Found");
             }
 
@@ -83,8 +73,8 @@ public class DataAccessMongoDB implements IDataAccessor {
     }
 
     @Override
-    public List<ICity> getCitiesByBookTitle(String bookTitle) {
-        //user story 2: get all cities by book title.
+    public List<ICity> getCitiesByBookTitle(String bookTitle) throws NotFoundExceptionMapper  {
+
         try {
             List<ICity> cities = new ArrayList();
             ObjectMapper mapper = new ObjectMapper();
@@ -100,19 +90,16 @@ public class DataAccessMongoDB implements IDataAccessor {
                 }
             }
 
-            if (cities.size() == 0) {
-                throw new NotFoundExceptionMapper("No Book Found");
+            if (cities.isEmpty()) {
+                System.out.println("THE CITIES IS EMPTY");
+                throw new NotFoundExceptionMapper("No Cities Found");
             }
-
+            
             return cities;
         } catch (Exception e) {
-            try {
-                throw new NotFoundExceptionMapper(e.getMessage());
-            } catch (NotFoundExceptionMapper ex) {
-                Logger.getLogger(DataAccessMongoDB.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            System.out.println("ERROR HERE" + e.getMessage());
+              throw new NotFoundExceptionMapper(e.getMessage());
         }
-        return null;
     }
 
     public List<IBook> getBooksByAuthorName(String authorName) throws NotFoundExceptionMapper {

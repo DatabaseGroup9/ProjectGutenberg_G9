@@ -39,7 +39,7 @@ public class CityFacade implements ICityFacade {
                 cities = dataAccessFactory.getDataAccessor(this.database).getCitiesByBookTitle(bookTitle);
                 return cities;
             } else {
-                throw new NotFoundExceptionMapper("Invalid Title");
+                throw new NotFoundExceptionMapper("Invalid Input");
             }
         } catch (NotFoundExceptionMapper e) {
             throw e; //possible error from the DBAccessor - No Book Found

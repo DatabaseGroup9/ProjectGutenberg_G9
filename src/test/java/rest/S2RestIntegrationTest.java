@@ -37,44 +37,40 @@ public class S2RestIntegrationTest {
         tomcat.stop();
     }
 
-    @Ignore
     @Test
-    public void testValidAuthorBooksFound() {
+    public void testValidTitleCitiesFound() {
         given()
                 .queryParam("db", "mongodb")
-                .queryParam("city", "Madrid")
+                .queryParam("title", "The Three Musketeers")
                 .contentType("application/json")
                 .when()
-                .get("/api/author").then()
+                .get("/api/city").then()
                 .statusCode(200)
                 .body("size()", is(not(0)));
-
     }
  
-    @Ignore
     @Test
-    public void testValidAuthorNoBookFound() {
+    public void testValidTitleNoCityFound() {
         given()
-                .queryParam("db", "mongodb") // this has to be change to stub but the implementation always return books so it's gonna fail
-                .queryParam("city", "Lyngby")
+                .queryParam("db", "mongodb")
+                .queryParam("title", "The Book of Copenhagen")
                 .contentType("application/json")
                 .when()
-                .get("/api/author").then()
+                .get("/api/city").then()
                 .statusCode(400)
-                .body("error.message", is("No Book Found"));
+                .body("error.message", is("No Cities Found"));
 
     }
 
     
-    @Ignore
     @Test
-    public void testInvalidAuthor() {
+    public void testInvalidTitle() {
         given()
                 .queryParam("db", "mongodb")
-                .queryParam("city", "")
+                .queryParam("title", "")
                 .contentType("application/json")
                 .when()
-                .get("/api/author").then()
+                .get("/api/city").then()
                 .statusCode(400)
                 .body("error.message", is("Invalid Input"));
     }
