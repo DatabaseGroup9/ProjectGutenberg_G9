@@ -1,15 +1,14 @@
 'use strict';
 
-var app = angular.module('myApp.view2', ['ngRoute', 'ui-leaflet'])
+var app = angular.module('myApp.view4', ['ngRoute'])
 
 app.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/view2', {
-            templateUrl: 'app/view2/view2.html',
-            controller: 'View2Ctrl'
+        $routeProvider.when('/view4', {
+            templateUrl: 'app/view4/view4.html'
         });
     }])
 
-app.controller('View2Ctrl', function ($scope, $http) {
+app.controller('View2Ctrl', function ($scope, $http, markerCities) {
     $scope.searchByBookTitle = function () {
         $http({
             method: 'GET',
