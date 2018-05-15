@@ -30,20 +30,29 @@ app.controller('View3Ctrl', function ($scope, $http, booksGlobal) {
             params: {author: $scope.toSearch, db: $scope.db}
         }).then(function successCallback(response) {
             $scope.books = response.data;
-            $scope.markers = new Array();
+            $scope.markers = {};
             angular.forEach($scope.books, function (book) {
                 $scope.cities = book.cities;
                 angular.forEach($scope.cities, function (city) {
-                    if($scope.markers.match({}))
-                    $scope.markers.push({
-                        lat: city.lat,
-                        lng: city.lon,
-                        message: book.title + " - " + city.name,
-                        focus: false,
-                        draggable: false
-                    });
+                    if(city.name in $scope.markers){
+                        $scope.markers[city.name].message =  $scope.markers[city.name].message + "<dd>" + book.title + "</dd>";
+                    } else {
+                        $scope.markers[city.name] = {
+                            lat: city.lat,
+                            lng: city.lon,
+                            message: "<dt>" + city.name + "</dt><dd>" + book.title + "</dd>",
+                            focus: false,
+                            draggable: false
+                        };
+                    }
                 });
+
             });
+
+            angular.forEach($scope.markers, function(marker){
+               marker.message = "<dl>" + marker.message + "</dl>";
+            });
+
             $scope.err = null;
         }, function errorCallback(response) {
             console.log("ERROR FOUND::> " + response.data);
