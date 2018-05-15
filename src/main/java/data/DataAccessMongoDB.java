@@ -48,11 +48,6 @@ public class DataAccessMongoDB implements IDataAccessor {
                 printBook((Book) b);
                 books.add(b);
             }
-
-            if (books.isEmpty()) {
-                throw new NotFoundExceptionMapper("No Book Found");
-            }
-
             return books;
         } catch (Exception e) {
             throw new NotFoundExceptionMapper(e.getMessage());
@@ -89,12 +84,6 @@ public class DataAccessMongoDB implements IDataAccessor {
                     cities.add(c);
                 }
             }
-
-            if (cities.isEmpty()) {
-                System.out.println("THE CITIES IS EMPTY");
-                throw new NotFoundExceptionMapper("No Cities Found");
-            }
-            
             return cities;
         } catch (Exception e) {
             System.out.println("ERROR HERE" + e.getMessage());
@@ -118,15 +107,6 @@ public class DataAccessMongoDB implements IDataAccessor {
                 printBook((Book) b);
                 books.add(b);
             }
-
-            if (books.size() == 0) {
-                /*
-                 * TODO: Make error handling consistent across all implementations of IDataAccessor.
-                 * DataAccessNeo4J simply returns empty list, while MongoDB throws an exception.
-                 */
-                throw new NotFoundExceptionMapper("No Book Found");
-            }
-
             return books;
         } catch (Exception e) {
             throw new NotFoundExceptionMapper(e.getMessage());

@@ -1,9 +1,7 @@
-
 package data;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-
 
 /**
  *

@@ -1,13 +1,12 @@
 package facades;
 
-
-
 import interfaces.IBookFacadeHelper;
-import org.apache.http.util.TextUtils;
 
-public class BookFacadeHelper implements IBookFacadeHelper {
+/**
+ * This class is responsible for checking valid inputs for city, title and author
+ */
 
-
+public class FacadeHelper implements IBookFacadeHelper {
     public boolean checkValidCityInput(String city)  {
 
 
@@ -30,6 +29,17 @@ public class BookFacadeHelper implements IBookFacadeHelper {
         }
         catch(NumberFormatException nfe)
         {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean checkValidBookTitleInput(String bookTitle)  {
+
+        if(bookTitle == null || bookTitle == ""){
+            return false;
+        }
+        if(bookTitle.length() > 500){
             return false;
         }
         return true;

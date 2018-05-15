@@ -44,8 +44,8 @@ public class BookFacadeParameterizedBehaviourTest {
     /*Valid*/
     @Test
     @FileParameters("src/test/java/test/resources/story1-validinput.csv")
-    public void getBooksByCityNameValidInputBehaviour1(String city) {
-        List<IBook> books = new ArrayList<IBook>();
+    public void getBooksByCityNameValidInputBehaviour1(String city) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
+        List<IBook> books = new ArrayList<IBook>(); //push some book elements here
         try {
             when(iDataAcessFactoryMock.getDataAccessor((eq("stub")))).thenReturn(iDataAcessMock);
             when(iDataAcessMock.getBooksByCityName((eq(city)))).thenReturn(books);
