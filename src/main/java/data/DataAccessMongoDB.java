@@ -110,7 +110,7 @@ public class DataAccessMongoDB implements IDataAccessor {
             ObjectMapper mapper = new ObjectMapper();
             MongoDatabase database = con.getDatabase("cjs_db");
             MongoCollection coll = database.getCollection("books");
-            FindIterable<Document> findIterable = coll.find(in("authors.name", authorName));
+            FindIterable<Document> findIterable = coll.find(eq("author", authorName));
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);
