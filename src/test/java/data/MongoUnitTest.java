@@ -3,20 +3,16 @@ package data;
 import httpErrors.NotFoundExceptionMapper;
 import interfaces.IBook;
 import interfaces.ICity;
-import interfaces.IDataAccessFactory;
 import java.util.List;
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 import org.hamcrest.CoreMatchers;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import static org.hamcrest.Matchers.is;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 
 /**
@@ -57,4 +53,11 @@ public class MongoUnitTest {
         assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
         assertThat(books.get(0).getCities().size(),CoreMatchers.is(greaterThanOrEqualTo(1)));
     }
+    
+    @Test
+    public void getNameTest(){
+        String dbname = dataAccessMongoDB.getName();
+        assertThat(dbname, is("DataAccessMongoDB"));
+    }
+
 }
