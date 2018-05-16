@@ -46,7 +46,6 @@ public class DataAccessStub implements IDataAccessor {
 
         //keep this for exception handler
         if (books.size() == 0) {
-            System.out.println("HEY THIS LIST IS EMPTY CHERRY!!!");
             throw new NotFoundExceptionMapper("No Book Found");
         }
 

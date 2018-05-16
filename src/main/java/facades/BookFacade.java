@@ -1,16 +1,16 @@
 package facades;
 
-import data.DataAccessFactory;
 import httpErrors.InvalidInputExceptionMapper;
 import httpErrors.NotFoundExceptionMapper;
 import interfaces.IDataAccessFactory;
 import interfaces.IBook;
 import interfaces.IBookFacade;
-
 import java.util.ArrayList;
 import java.util.List;
-import interfaces.IDataAccessor;
 
+/**
+ * This handles the logic for the object Book
+ */
 public class BookFacade implements IBookFacade {
 
     /**
@@ -18,7 +18,7 @@ public class BookFacade implements IBookFacade {
      */
     private IDataAccessFactory dataAccessFactory;
     private String database;
-    private BookFacadeHelper helper = new BookFacadeHelper();
+    private FacadeHelper helper = new FacadeHelper();
 
     public BookFacade(IDataAccessFactory dataAccessFactory, String database) {
         this.dataAccessFactory = dataAccessFactory;
@@ -28,18 +28,19 @@ public class BookFacade implements IBookFacade {
     @Override
     public List<IBook> getBooksByCityName(String city) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
         //Remember to add the valid input checker
-            city = city.trim();
+        city = city.trim();
 
-            if(!helper.checkValidCityInput(city)){
-                throw new InvalidInputExceptionMapper("Invalid Input");
+        if (!helper.checkValidCityInput(city)) {
+            throw new InvalidInputExceptionMapper("Invalid Input");
 
-            }
-
-
+        }
         try {
             List<IBook> books = new ArrayList<IBook>();
             if (city != null && city.length() > 0) {
                 books = dataAccessFactory.getDataAccessor(this.database).getBooksByCityName(city);
+                if (books.isEmpty()) {
+                    throw new NotFoundExceptionMapper("No Book Found");
+                }
                 return books;
             } else {
                 throw new NotFoundExceptionMapper("Invalid City");
@@ -53,13 +54,16 @@ public class BookFacade implements IBookFacade {
     public List<IBook> getBooksByAuthorName(String author) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
         author = author.trim();
 
-        if(!helper.checkValidCityInput(author)){
+        if (!helper.checkValidCityInput(author)) {
             throw new InvalidInputExceptionMapper("Invalid Input");
         }
 
         try {
             List<IBook> books = new ArrayList<>();
             books = dataAccessFactory.getDataAccessor(this.database).getBooksByAuthorName(author);
+            if (books.isEmpty()) {
+                throw new NotFoundExceptionMapper("No Book Found");
+            }
             return books;
         } catch (NotFoundExceptionMapper e) {
             throw e; //possible error from the DBAccessor - No Book Found

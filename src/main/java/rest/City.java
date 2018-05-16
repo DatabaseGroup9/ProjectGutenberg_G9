@@ -32,6 +32,7 @@ public class City {
          */
         
         try {
+//            System.out.println("THE TITLE IS " + title);
             ICityFacade facade = new CityFacade(new DataAccessFactory(), db);
             List<ICity> list = facade.getCitiesByBookTitle(title);
             String json = new Gson().toJson(list);

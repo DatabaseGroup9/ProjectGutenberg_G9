@@ -1,16 +1,12 @@
 package data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;
-import static com.mongodb.client.model.Projections.elemMatch;
 import entity.Book;
 import entity.City;
 import httpErrors.NotFoundExceptionMapper;
@@ -18,10 +14,7 @@ import interfaces.IBook;
 import interfaces.ICity;
 import interfaces.IDataAccessor;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bson.Document;
 
 /**
@@ -34,11 +27,9 @@ public class DataAccessMongoDB implements IDataAccessor {
     private DBConnectorMongoDB connector = null;
     private static MongoClient con = null;
 
-//    DB db = null;
     public DataAccessMongoDB() {
         this.connector = new DBConnectorMongoDB();
         this.con = connector.getConnection();
-//        this.db = con.getDB("cjs_db");
     }
 
     @Override
@@ -49,7 +40,7 @@ public class DataAccessMongoDB implements IDataAccessor {
             ObjectMapper mapper = new ObjectMapper();
             MongoDatabase database = con.getDatabase("cjs_db");
             MongoCollection coll = database.getCollection("books");
-            FindIterable<Document> findIterable = coll.find(in("cities.name", cityName));
+            FindIterable<Document> findIterable = coll.find(in("cities.name", cityName)); 
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);
@@ -57,11 +48,6 @@ public class DataAccessMongoDB implements IDataAccessor {
                 printBook((Book) b);
                 books.add(b);
             }
-
-            if (books.size() == 0) {
-                throw new NotFoundExceptionMapper("No Book Found");
-            }
-
             return books;
         } catch (Exception e) {
             throw new NotFoundExceptionMapper(e.getMessage());
@@ -82,35 +68,27 @@ public class DataAccessMongoDB implements IDataAccessor {
     }
 
     @Override
-    public List<ICity> getCitiesByBookTitle(String bookTitle) {
-        //user story 2: get all cities by book title.
+    public List<ICity> getCitiesByBookTitle(String bookTitle) throws NotFoundExceptionMapper  {
+
         try {
             List<ICity> cities = new ArrayList();
             ObjectMapper mapper = new ObjectMapper();
             MongoDatabase database = con.getDatabase("cjs_db");
             MongoCollection coll = database.getCollection("books");
-            FindIterable<Document> findIterable = coll.find(in("books.title", bookTitle));
+            FindIterable<Document> findIterable = coll.find(eq("title", bookTitle)); 
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);
-                ICity c = mapper.readValue(jsonStr, City.class);
-                //printBook((Book) b);
-                cities.add(c);
+                IBook b = mapper.readValue(jsonStr, Book.class);
+                for (City c : b.getCities()) {
+                    cities.add(c);
+                }
             }
-
-            if (cities.size() == 0) {
-                throw new NotFoundExceptionMapper("No Book Found");
-            }
-
             return cities;
         } catch (Exception e) {
-            try {
-                throw new NotFoundExceptionMapper(e.getMessage());
-            } catch (NotFoundExceptionMapper ex) {
-                Logger.getLogger(DataAccessMongoDB.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            System.out.println("ERROR HERE" + e.getMessage());
+              throw new NotFoundExceptionMapper(e.getMessage());
         }
-        return null;
     }
 
     public List<IBook> getBooksByAuthorName(String authorName) throws NotFoundExceptionMapper {
@@ -121,7 +99,7 @@ public class DataAccessMongoDB implements IDataAccessor {
             ObjectMapper mapper = new ObjectMapper();
             MongoDatabase database = con.getDatabase("cjs_db");
             MongoCollection coll = database.getCollection("books");
-            FindIterable<Document> findIterable = coll.find(in("authors.name", authorName));
+            FindIterable<Document> findIterable = coll.find(eq("author", authorName));
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);
@@ -129,15 +107,6 @@ public class DataAccessMongoDB implements IDataAccessor {
                 printBook((Book) b);
                 books.add(b);
             }
-
-            if (books.size() == 0) {
-                /*
-                 * TODO: Make error handling consistent across all implementations of IDataAccessor.
-                 * DataAccessNeo4J simply returns empty list, while MongoDB throws an exception.
-                 */
-                throw new NotFoundExceptionMapper("No Book Found");
-            }
-
             return books;
         } catch (Exception e) {
             throw new NotFoundExceptionMapper(e.getMessage());
