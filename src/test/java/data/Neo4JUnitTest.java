@@ -35,7 +35,6 @@ public class Neo4JUnitTest {
         assertThat(books.get(0).getAuthor(), CoreMatchers.is(equalTo(author)));
     }
 
-    @Ignore
     @Test
     @FileParameters("src/test/java/test/resources/S2-validinput-neo4j.csv")
     public void getCitiesByTitleTest(String title, String name, double lat, double lon) throws NotFoundExceptionMapper {
@@ -45,13 +44,11 @@ public class Neo4JUnitTest {
         assertThat(cities.get(0).getLon(), CoreMatchers.is(equalTo(lon)));
     }
 
-    @Ignore
     @Test
     @FileParameters("src/test/java/test/resources/S3-validinput-neo4j.csv")
     public void getBooksByAuthor(String author, String title) throws NotFoundExceptionMapper {
         List<IBook> books = dataAccessNeo4J.getBooksByAuthorName(author);
         assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
-        assertThat(books.get(0).getCities().size(), CoreMatchers.is(greaterThanOrEqualTo(1)));
     }
 
 }

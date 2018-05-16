@@ -18,21 +18,21 @@ import static org.hamcrest.core.IsEqual.equalTo;
 public class FacadeHelperParameterizedTest {
 
     @Test
-    @FileParameters("src/test/java/test/resources/story1-invalidinput.csv")
+    @FileParameters("src/test/java/test/resources/invalid-input-cities.csv")
     public void loadParamsFromFileWithIdentityMapperInvalid(String city) {
         FacadeHelper bookFacadeHelper = new FacadeHelper();
         assertThat(bookFacadeHelper.checkValidCityInput(city), is(equalTo(false)));
 
     }
     @Test
-    @FileParameters("src/test/java/test/resources/story1-notfoundinput.csv")
+    @FileParameters("src/test/java/test/resources/notfound-cities.csv")
     public void loadParamsFromFileWithIdentityMapperNotFound(String city) {
         FacadeHelper bookFacadeHelper = new FacadeHelper();
         assertThat(bookFacadeHelper.checkValidCityInput(city), is(equalTo(true)));
 
     }
     @Test
-    @FileParameters("src/test/java/test/resources/story1-validinput.csv")
+    @FileParameters("src/test/java/test/resources/notfound-cities.csv")
     public void loadParamsFromFileWithIdentityMapperValid(String city) {
         FacadeHelper bookFacadeHelper = new FacadeHelper();
         assertThat(bookFacadeHelper.checkValidCityInput(city), is(equalTo(true)));

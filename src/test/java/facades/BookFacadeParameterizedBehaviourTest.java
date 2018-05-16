@@ -43,7 +43,7 @@ public class BookFacadeParameterizedBehaviourTest {
     }
     /*Valid*/
     @Test
-    @FileParameters("src/test/java/test/resources/story1-validinput.csv")
+    @FileParameters("src/test/java/test/resources/valid-cities.csv")
     public void getBooksByCityNameValidInputBehaviour1(String city) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
         List<IBook> books = new ArrayList<IBook>(); //push some book elements here
         try {
@@ -57,7 +57,7 @@ public class BookFacadeParameterizedBehaviourTest {
         }
     }
     @Test
-    @FileParameters("src/test/java/test/resources/story1-validinput.csv")
+    @FileParameters("src/test/java/test/resources/valid-cities.csv")
     public void getBooksByCityNameValidInputBehaviour2(String city) {
         List<IBook> books = new ArrayList<IBook>();
         try {
@@ -72,7 +72,7 @@ public class BookFacadeParameterizedBehaviourTest {
     }
     /*Invalid*/
     @Test(expected = InvalidInputExceptionMapper.class)
-    @FileParameters("src/test/java/test/resources/story1-invalidinput.csv")
+    @FileParameters("src/test/java/test/resources/invalid-input-cities.csv")
     public void getBooksByCityNameInvalidInput(String city) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
         iDataAcessMock = mock(IDataAccessor.class);
         List<IBook> books = new ArrayList<IBook>();
