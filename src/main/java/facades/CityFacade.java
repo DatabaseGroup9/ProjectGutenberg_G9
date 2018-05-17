@@ -1,16 +1,16 @@
 package facades;
 
-import data.DataAccessFactory;
 import httpErrors.InvalidInputExceptionMapper;
 import httpErrors.NotFoundExceptionMapper;
 import interfaces.IDataAccessFactory;
 import interfaces.ICity;
-
 import java.util.ArrayList;
 import java.util.List;
-import interfaces.IDataAccessor;
 import interfaces.ICityFacade;
 
+/**
+ * This handles the logic for the object City
+ */
 public class CityFacade implements ICityFacade {
 
     /**
@@ -18,7 +18,7 @@ public class CityFacade implements ICityFacade {
      */
     private IDataAccessFactory dataAccessFactory;
     private String database;
-    private CityFacadeHelper helper = new CityFacadeHelper();
+    private FacadeHelper helper = new FacadeHelper();
 
     public CityFacade(IDataAccessFactory dataAccessFactory, String database) {
         this.dataAccessFactory = dataAccessFactory;
@@ -27,19 +27,21 @@ public class CityFacade implements ICityFacade {
 
     public List<ICity> getCitiesByBookTitle(String bookTitle) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
         //Remember to add the valid input checker
-            bookTitle = bookTitle.trim();
-            if(!helper.checkValidBookTitleInput(bookTitle)){
-                throw new InvalidInputExceptionMapper("Invalid Input");
-            }
-
+        bookTitle = bookTitle.trim();
+        if (!helper.checkValidBookTitleInput(bookTitle)) {
+            throw new InvalidInputExceptionMapper("Invalid Input");
+        }
 
         try {
             List<ICity> cities = new ArrayList<ICity>();
             if (bookTitle != null && bookTitle.length() > 0) {
                 cities = dataAccessFactory.getDataAccessor(this.database).getCitiesByBookTitle(bookTitle);
+                if (cities.isEmpty()) {
+                    throw new NotFoundExceptionMapper("No Cities Found");
+                }
                 return cities;
             } else {
-                throw new NotFoundExceptionMapper("Invalid Title");
+                throw new NotFoundExceptionMapper("Invalid Input");
             }
         } catch (NotFoundExceptionMapper e) {
             throw e; //possible error from the DBAccessor - No Book Found

@@ -21,9 +21,9 @@ var app = angular.module('myApp.view1', ['ngRoute'])
                     $scope.books = response.data;
                     $scope.err = null;
                 }, function errorCallback(response) {
-                    console.log("ERROR FOUND s::> " + response.toString());
-                    $scope.err = response.error;
+                    console.log("ERROR FOUND s::> " + JSON.stringify(response));
                     $scope.books = null;
+                    $scope.err = response.data.error;
                 });
             };
 
