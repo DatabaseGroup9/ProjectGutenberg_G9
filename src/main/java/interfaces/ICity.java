@@ -1,5 +1,8 @@
 package interfaces;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as = entity.City.class)
 public interface ICity {
     void setName(String name);
     void setLat(double lat);
