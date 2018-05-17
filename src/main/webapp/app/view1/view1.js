@@ -11,6 +11,7 @@ var app = angular.module('myApp.view1', ['ngRoute'])
             }])
 
         app.controller('View1Ctrl', function ($scope, $http) {
+            $scope.toSearch = '';
             $scope.searchByCity = function () {
                 $http({
                     method: 'GET',
@@ -25,4 +26,5 @@ var app = angular.module('myApp.view1', ['ngRoute'])
                     $scope.books = null;
                 });
             };
+
         });
