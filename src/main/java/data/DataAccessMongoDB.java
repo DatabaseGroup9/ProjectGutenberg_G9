@@ -80,7 +80,7 @@ public class DataAccessMongoDB implements IDataAccessor {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);
                 IBook b = mapper.readValue(jsonStr, Book.class);
-                for (City c : b.getCities()) {
+                for (ICity c : b.getCities()) {
                     cities.add(c);
                 }
             }
