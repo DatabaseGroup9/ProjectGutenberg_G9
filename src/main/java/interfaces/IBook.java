@@ -15,11 +15,22 @@ import java.util.List;
  */
 public interface IBook {
 
-  List<City>  getCities();
-  String getId();
-  void setId(String id);
-  String getTitle();
-  void setTitle(String title);
-  String getAuthor();
-  void setAuthor(String author);
+    List<ICity> getCities();
+
+    String getId();
+
+    void setId(String id);
+
+    String getTitle();
+
+    void setTitle(String title);
+
+    String getAuthor();
+
+    void setAuthor(String author);
+
+    public void setCities(List<ICity> citiesByBookTitle);
+
+
+
 }
