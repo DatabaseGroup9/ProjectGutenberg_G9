@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package selenium;
+package seleniumcucumber;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -213,6 +213,9 @@ public class View1 {
         Assert.assertThat(expectedBookTitleInFirstRow, is(firstRowBookTitle));
         Assert.assertThat(expectedBookAuthorInFirstRow, is(firstRowBookAuthor));
     }
+    
+    
+    
     
 
 }
