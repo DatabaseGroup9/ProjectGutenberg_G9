@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.SystemUtils;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,9 +32,9 @@ public class Stepdefs {
 
     public Stepdefs() {
         if (SystemUtils.IS_OS_WINDOWS) {
-            System.setProperty("webdriver.chrome.driver", "src/test/java/seleniumcucumber/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "src/test/java/seleniumcucumber/chromedriver_win.exe");
         } else if (SystemUtils.IS_OS_UNIX) {
-            System.setProperty("webdriver.chrome.driver", "src/test/java/seleniumcucumber/chromedriver_unic");
+            System.setProperty("webdriver.chrome.driver", "src/test/java/seleniumcucumber/chromedriver_unix");
         }
         driver = new ChromeDriver();
     }
@@ -45,13 +47,24 @@ public class Stepdefs {
 
     @When("^Enter '(.*)' and choose '(.*)'$")
     public void enter_city_and_choose_db(String city, String database) throws Throwable {
-        
+        WebElement select_field = driver.findElement(By.id("select_db_dropdown"));
+        WebElement cityfield = driver.findElement(By.id("city"));
+        WebElement submit = driver.findElement(By.id("submit"));
+        Select dropdown = new Select(select_field);
+        dropdown.selectByValue(database);
+        String input = city;
+        cityfield.sendKeys(input);
+        submit.click();
+        TimeUnit.SECONDS.sleep(5);
     }
-
 
     @Then("^I should get '(.*)'$")
     public void i_should_get_success(String page) throws Throwable {
-       
+        WebElement bookstable = driver.findElement(By.id("books"));
+        WebElement body = bookstable.findElement(By.tagName("tbody"));
+        List<WebElement> rowList = body.findElements(By.tagName("tr"));
+        Assert.assertThat(rowList.size(), greaterThanOrEqualTo(1));
+        driver.quit();
     }
 
 }
