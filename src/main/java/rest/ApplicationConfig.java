@@ -25,6 +25,7 @@ public class ApplicationConfig extends Application {
     resources.add(httpErrors.InvalidInputExceptionMapper.class);
     resources.add(httpErrors.NotFoundExceptionMapper.class);
     resources.add(rest.All.class);
+        resources.add(rest.Author.class);
         resources.add(rest.Book.class);
         resources.add(rest.City.class);
   }
