@@ -18,6 +18,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 import static seleniumcucumber.View1.driver;
 
@@ -31,12 +32,14 @@ public class Stepdefs {
     static WebDriver driver;
 
     public Stepdefs() {
-        if (SystemUtils.IS_OS_WINDOWS) {
-            System.setProperty("webdriver.chrome.driver", "src/test/java/seleniumcucumber/chromedriver_win.exe");
-        } else if (SystemUtils.IS_OS_UNIX) {
-            System.setProperty("webdriver.chrome.driver", "src/test/java/seleniumcucumber/chromedriver_unix");
-        }
-        driver = new ChromeDriver();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("headless");
+//        if (SystemUtils.IS_OS_WINDOWS) {
+        System.setProperty("webdriver.chrome.driver", "src/test/java/seleniumcucumber/chromedriver_win.exe");
+//        } else if (SystemUtils.IS_OS_UNIX) {
+//            System.setProperty("webdriver.chrome.driver", "src/test/java/seleniumcucumber/chromedriver_unix");
+//        }
+        driver = new ChromeDriver(chromeOptions);
     }
 
     @Given("^The city is '(.*)'$")
@@ -55,7 +58,8 @@ public class Stepdefs {
         String input = city;
         cityfield.sendKeys(input);
         submit.click();
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(WAIT_MAX);
+
     }
 
     @Then("^I should get '(.*)'$")
