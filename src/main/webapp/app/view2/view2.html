@@ -9,21 +9,21 @@
             <div class="form-group">
                 <label>Select database:</label>
                 <!--<input type="text" style="width:10em;" placeholder="database" name="db" class="form-control" ng-model="db" required>-->
-                <select name="db" ng-model="db" required>
+                <select id = "select_db_dropdown" name="db" ng-model="db" required>
                     <option value ="stub">stub</option>
                     <option value ="mongodb">mongodb</option>
                     <option value ="neo4j">neo4j</option>
                 </select>
                 <br><br>
-                <label>Search Cities by BookTitel:</label>
-                <input type="text" style="width:10em;" placeholder="title" name="title" class="form-control" ng-model="toSearch">
+                <label>Search Cities by Book Title:</label>
+                <input id="title" type="text" style="width:10em;" placeholder="title" name="title" class="form-control" ng-model="toSearch">
             </div>
             <br><br>
-            <button type="submit" class="btn btn-success">Search</button>
+            <button id="submit" type="submit" class="btn btn-success">Search</button>
         </form>
     </div>
     <div class="row">
-        <table class="table" ng-if="cities.length > 0">
+        <table id = "cities" class="table" ng-if="cities.length > 0">
             <thead>
             <th>Name</th>
             <th>Lat</th>
@@ -36,7 +36,7 @@
             </tbody>
         </table>
 
-        <div class="alert alert-warning" ng-if ="err != null">
+        <div id="error" class="alert alert-warning" ng-if ="err != null">
             <strong>ERROR: </strong> {{err.message}}
         </div>
     </div>
