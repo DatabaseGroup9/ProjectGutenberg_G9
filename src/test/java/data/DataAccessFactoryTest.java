@@ -5,6 +5,7 @@ import interfaces.IDataAccessFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 public class DataAccessFactoryTest {
     @Test
@@ -13,6 +14,8 @@ public class DataAccessFactoryTest {
         IDataAccessor dataAccessor = iDataAccessFactory.getDataAccessor("stub");
         assertTrue(dataAccessor.getClass().getName().equals("data.DataAccessStub"));
     }
+    
+    @Ignore
     @Test
     public void getDataAccessorTestNeo4J() {
         IDataAccessFactory iDataAccessFactory = new DataAccessFactory();

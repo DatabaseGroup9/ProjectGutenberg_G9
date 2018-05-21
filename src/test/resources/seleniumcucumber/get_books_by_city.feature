@@ -8,7 +8,6 @@ Feature: Get Books By City
 
 Examples:
     | city     | page            | database |
-    | Anderson | success         | stub     |
     | Anderson | success         | mongodb  |
-    | Anderson | success         | neo4j    |
+    | Anderson | success         | stub     |
 
