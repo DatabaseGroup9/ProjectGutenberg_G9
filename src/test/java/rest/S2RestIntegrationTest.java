@@ -13,6 +13,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import test.utils.EmbeddedTomcat;
 
+@Ignore
 public class S2RestIntegrationTest {
 
     private static final int SERVER_PORT = 9999;

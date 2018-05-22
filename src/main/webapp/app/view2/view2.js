@@ -37,8 +37,8 @@ app.controller('View2Ctrl', function ($scope, $http, markerCities) {
             $scope.markers = new Array();
             angular.forEach($scope.cities, function (product) {
                 $scope.markers.push({
-                    lat: product.lat,
-                    lng: product.lon,
+                    lng: product.lat,
+                    lat: product.lon,
                     message: product.name,
                     focus: false,
                     draggable: false

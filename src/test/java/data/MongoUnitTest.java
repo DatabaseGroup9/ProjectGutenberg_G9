@@ -13,12 +13,14 @@ import static org.hamcrest.Matchers.is;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
 /**
  *
  * @author Cherry Rose Semeña
  */
+@Ignore
 @RunWith(JUnitParamsRunner.class)
 public class MongoUnitTest {
 

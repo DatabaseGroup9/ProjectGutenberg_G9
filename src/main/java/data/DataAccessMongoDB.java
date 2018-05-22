@@ -26,6 +26,8 @@ public class DataAccessMongoDB implements IDataAccessor {
     private String name = "DataAccessMongoDB";
     private DBConnectorMongoDB connector = null;
     private static MongoClient con = null;
+    private String dbname = "gutenberg";
+    private String col = "books";
 
     public DataAccessMongoDB() {
         this.connector = new DBConnectorMongoDB();
@@ -34,18 +36,18 @@ public class DataAccessMongoDB implements IDataAccessor {
 
     @Override
     public List<IBook> getBooksByCityName(String cityName) throws NotFoundExceptionMapper {
-
+        System.out.println("THE CITY___________" + cityName + "__________________");
         try {
             List<IBook> books = new ArrayList();
             ObjectMapper mapper = new ObjectMapper();
-            MongoDatabase database = con.getDatabase("cjs_db");
-            MongoCollection coll = database.getCollection("books");
+            MongoDatabase database = con.getDatabase(dbname);
+            MongoCollection coll = database.getCollection(col);
             FindIterable<Document> findIterable = coll.find(in("cities.name", cityName)); 
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);
                 IBook b = mapper.readValue(jsonStr, Book.class);
-                printBook((Book) b);
+                //printBook((Book) b);
                 books.add(b);
             }
             return books;
@@ -73,8 +75,8 @@ public class DataAccessMongoDB implements IDataAccessor {
         try {
             List<ICity> cities = new ArrayList();
             ObjectMapper mapper = new ObjectMapper();
-            MongoDatabase database = con.getDatabase("cjs_db");
-            MongoCollection coll = database.getCollection("books");
+            MongoDatabase database = con.getDatabase(dbname);
+            MongoCollection coll = database.getCollection(col);
             FindIterable<Document> findIterable = coll.find(eq("title", bookTitle)); 
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
@@ -97,8 +99,8 @@ public class DataAccessMongoDB implements IDataAccessor {
         try {
             List<IBook> books = new ArrayList();
             ObjectMapper mapper = new ObjectMapper();
-            MongoDatabase database = con.getDatabase("cjs_db");
-            MongoCollection coll = database.getCollection("books");
+            MongoDatabase database = con.getDatabase(dbname);
+            MongoCollection coll = database.getCollection(col);
             FindIterable<Document> findIterable = coll.find(eq("author", authorName));
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
@@ -116,8 +118,8 @@ public class DataAccessMongoDB implements IDataAccessor {
     //------------------------------------------------Run Once For Testing Locally-------------------------------------------------------------------------
 //    private static void populateWithTestData() {
 //        try {
-//            MongoDatabase database = con.getDatabase("cjs_db");
-//            MongoCollection collectionOfBooks = database.getCollection("books");
+//            MongoDatabase database = con.getDatabase(dbname);
+//            MongoCollection collectionOfBooks = database.getCollection(col);
 //            MongoCollection collectionOfCities = database.getCollection("cities");
 //            MongoCollection collectionOfMentions = database.getCollection("mentions");
 //
@@ -142,7 +144,7 @@ public class DataAccessMongoDB implements IDataAccessor {
 //            collectionOfCities.insertMany(cities);
 //
 //            //books
-//            List<Document> books = new ArrayList();
+    //            List<Document> books = new ArrayList();
 //            Document book1 = new Document();
 //            book1.put("title", "The Three Musketeers");
 //            book1.put("author", "Alexandre Dumas");

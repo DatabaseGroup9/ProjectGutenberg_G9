@@ -2,3 +2,5 @@
 target
 
 /nbproject/
+
+/src/main/java/data/secret.ini

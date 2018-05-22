@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import test.utils.EmbeddedTomcat;
 
@@ -17,6 +18,7 @@ import test.utils.EmbeddedTomcat;
  *
  * @author Cherry Rose Semeña
  */
+@Ignore
 public class S3RestIntegrationTest {
     private static final int SERVER_PORT = 9999;
     private static final String APP_CONTEXT = "/dbtest"; 
