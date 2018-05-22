@@ -13,7 +13,7 @@ public class DBConnectorMongoDB {
     private MongoClient mongoClient= null;
     
 //    private String URI = "mongodb://localhost/dbtest";
-      private String URI = "mongodb://cph-cs241:cjs192@ds017514.mlab.com:17514/cjs_db";
+      private String URI = System.getenv("MONGODB_URI");
 //    mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
 //    mongodb://root:secret@db1.server.com:27027
     
