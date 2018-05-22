@@ -29,13 +29,13 @@ public class DBConnectorMongoDB {
     
     public MongoClient getConnection(){
         try{
-            if(JAVA_ENV.equals("/usr/lib/jvm/java-8-oracle")){
-//                String curdir = System.getProperty("user.dir");
+            if(PROD_MONGOURI != null){
+                URI = PROD_MONGOURI;
+            }else{
+//                 String curdir = System.getProperty("user.dir");
                 Ini ini = new Ini(new File("/home/cjs/Desktop/DBTest Final Project/ProjectGutenberg_G9/src/main/java/data/secret.ini"));
                 URI = ini.get("header", "MONGO_URI");
                 System.out.println(URI);
-            }else{
-                URI = PROD_MONGOURI;
             }
            this.mongoClient = new MongoClient(new MongoClientURI(URI));
         
