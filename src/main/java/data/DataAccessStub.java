@@ -70,7 +70,7 @@ public class DataAccessStub implements IDataAccessor {
         return list; // not yet implemented
     }
 
-    public List<IBook> getBooksByAuthorName(String authorName) throws NotFoundExceptionMapper {
+    public List<IBook> getMentionedCitiesByAuthorName(String authorName) throws NotFoundExceptionMapper {
         String[] notFound = new String[]{"J.K. Rowling", "Oprah Winfrey", "Stieg Larsson"};
         if(Arrays.asList(notFound).contains(authorName)){
             throw new NotFoundExceptionMapper("Author not found");
@@ -87,5 +87,10 @@ public class DataAccessStub implements IDataAccessor {
         books.add(new Book("Pride and Prejudice", "Jane Austen"));
 
         return books.subList(0, authorName.length() < 6 ? authorName.length() : 6);
+    }
+
+    @Override
+    public List<IBook> getBooksByGeolocation(double lat, double lon) throws NotFoundExceptionMapper {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
