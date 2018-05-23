@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
-import org.ini4j.Ini;
 
 /**
  *
@@ -50,17 +49,4 @@ public class DBConnectorMongoDB {
         this.mongoClient.close();
     }
     
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-//            Properties p = new Properties();
-//                p.load(new FileInputStream("src/main/resources/secret.ini"));
-//                String URI = p.getProperty("MONGO_URI");
-//                System.out.println(URI);
-//System.out.println("Working Directory = " +
-//              System.getProperty("user.dir"));
-//Ini ini = new Ini(new File("src/main/resources/secret.ini"));
-//System.out.println(ini.get("header", "MONGO_URI"));
-//        DBConnectorMongoDB db = new DBConnectorMongoDB();
-//        System.out.println(db.getConnection());
-    }
-   
 }

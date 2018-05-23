@@ -20,6 +20,7 @@ public class Book implements IBook{
     String title;
     String author;
     List<ICity> cities;
+
     public Book(){
 
     }
@@ -77,5 +78,6 @@ public class Book implements IBook{
                 ", cities=" + cities +
                 '}';
     }
+
     
 }

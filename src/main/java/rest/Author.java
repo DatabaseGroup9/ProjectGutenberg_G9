@@ -29,13 +29,12 @@ public class Author {
         List<IBook> books = new ArrayList<>();
 
         IBookFacade bookFacade = new BookFacade(new DataAccessFactory(), db);
-        ICityFacade cityFacade = new CityFacade(new DataAccessFactory(), db);
+       // ICityFacade cityFacade = new CityFacade(new DataAccessFactory(), db);
         books = bookFacade.getBooksByAuthorName(author);
 
-
-        for(IBook book : books){
-            book.setCities(cityFacade.getCitiesByBookTitle(book.getTitle()));
-        }
+//        for(IBook book : books){
+//            book.setCities(cityFacade.getCitiesByBookTitle(book.getTitle()));
+//        }
 
 
         String json = new Gson().toJson(books);

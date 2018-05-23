@@ -24,7 +24,7 @@ public class BookFacade implements IBookFacade {
         this.dataAccessFactory = dataAccessFactory;
         this.database = database;
     }
-
+    
     @Override
     public List<IBook> getBooksByCityName(String city) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
         //Remember to add the valid input checker
@@ -32,7 +32,6 @@ public class BookFacade implements IBookFacade {
 
         if (!helper.checkValidCityInput(city)) {
             throw new InvalidInputExceptionMapper("Invalid Input");
-
         }
         try {
             List<IBook> books = new ArrayList<IBook>();
@@ -60,7 +59,7 @@ public class BookFacade implements IBookFacade {
 
         try {
             List<IBook> books = new ArrayList<>();
-            books = dataAccessFactory.getDataAccessor(this.database).getBooksByAuthorName(author);
+            books = dataAccessFactory.getDataAccessor(this.database).getMentionedCitiesByAuthorName(author);
             if (books.isEmpty()) {
                 throw new NotFoundExceptionMapper("No Book Found");
             }
@@ -76,5 +75,24 @@ public class BookFacade implements IBookFacade {
 
     public void setDatabase(String database) {
         this.database = database;
+    }
+
+    @Override
+    public List<IBook> getBooksByGeolocation(double lat, double lon) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
+//        author = author.trim();
+//
+//        if (!helper.checkValidCityInput(author)) {
+//            throw new InvalidInputExceptionMapper("Invalid Input");
+//        }
+        try {
+            List<IBook> books = new ArrayList<>();
+            books = dataAccessFactory.getDataAccessor(this.database).getBooksByGeolocation(lat,lon);
+            if (books.isEmpty()) {
+                throw new NotFoundExceptionMapper("No Book Found");
+            }
+            return books;
+        } catch (NotFoundExceptionMapper e) {
+            throw e; //possible error from the DBAccessor - No Book Found
+        }
     }
 }

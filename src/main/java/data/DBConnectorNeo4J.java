@@ -9,7 +9,7 @@ import org.neo4j.driver.v1.GraphDatabase;
 public class DBConnectorNeo4J {
     private Driver driver = null;
     //Constants
-    private static final String IP	     = "bolt://188.166.30.160";
+    private static final String IP = "bolt://46.101.142.66";
     private static final String PORT     = ""; // best left empty for default port
     private static final String USERNAME = "neo4j";
     private static final String PASSWORD = "class";

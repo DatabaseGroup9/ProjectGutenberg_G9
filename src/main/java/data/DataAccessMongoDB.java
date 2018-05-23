@@ -5,6 +5,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;
 import entity.Book;
@@ -42,10 +43,10 @@ public class DataAccessMongoDB implements IDataAccessor {
             ObjectMapper mapper = new ObjectMapper();
             MongoDatabase database = con.getDatabase(dbname);
             MongoCollection coll = database.getCollection(col);
-            FindIterable<Document> findIterable = coll.find(in("cities.name", cityName)); 
+            FindIterable<Document> findIterable = coll.find(in("cities.name", cityName));
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
-                System.out.println("THE JSON STRING IS " + jsonStr);
+                //System.out.println("THE JSON STRING IS " + jsonStr);
                 IBook b = mapper.readValue(jsonStr, Book.class);
                 //printBook((Book) b);
                 books.add(b);
@@ -70,14 +71,14 @@ public class DataAccessMongoDB implements IDataAccessor {
     }
 
     @Override
-    public List<ICity> getCitiesByBookTitle(String bookTitle) throws NotFoundExceptionMapper  {
+    public List<ICity> getCitiesByBookTitle(String bookTitle) throws NotFoundExceptionMapper {
 
         try {
             List<ICity> cities = new ArrayList();
             ObjectMapper mapper = new ObjectMapper();
             MongoDatabase database = con.getDatabase(dbname);
             MongoCollection coll = database.getCollection(col);
-            FindIterable<Document> findIterable = coll.find(eq("title", bookTitle)); 
+            FindIterable<Document> findIterable = coll.find(eq("title", bookTitle));
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);
@@ -89,11 +90,11 @@ public class DataAccessMongoDB implements IDataAccessor {
             return cities;
         } catch (Exception e) {
             System.out.println("ERROR HERE" + e.getMessage());
-              throw new NotFoundExceptionMapper(e.getMessage());
+            throw new NotFoundExceptionMapper(e.getMessage());
         }
     }
 
-    public List<IBook> getBooksByAuthorName(String authorName) throws NotFoundExceptionMapper {
+    public List<IBook> getMentionedCitiesByAuthorName(String authorName) throws NotFoundExceptionMapper {
         List<IBook> list = new ArrayList();
 
         try {
@@ -204,10 +205,41 @@ public class DataAccessMongoDB implements IDataAccessor {
 //        }
 //
 //    }
-
 //    public static void main(String[] args) {
 //        DataAccessMongoDB db = new DataAccessMongoDB();
 //        populateWithTestData();
 //        con.close();
 //    }
+    @Override
+    public List<IBook> getBooksByGeolocation(double lat, double lon) throws NotFoundExceptionMapper {
+        List<IBook> list = new ArrayList();
+
+        try {
+            List<IBook> books = new ArrayList();
+            ObjectMapper mapper = new ObjectMapper();
+            MongoDatabase database = con.getDatabase(dbname);
+            MongoCollection coll = database.getCollection(col);
+            FindIterable<Document> findIterable = coll.find(in("cities.lat", lat, "cities.lon", lon)); //filter object before here how..
+            //FindIterable<Document> findIterable = coll.find(Filters.elemMatch("cities",in("lat",lat))); //
+            for (Document document : findIterable) {
+                String jsonStr = document.toJson();
+                //System.out.println("THE JSON STRING IS " + jsonStr);
+                IBook b = mapper.readValue(jsonStr, Book.class);
+                ICity theCity = null;
+                List<ICity> cityList = new ArrayList();
+                for (ICity city : b.getCities()) {
+                    if (city.getLat() == lat && city.getLon() == lon) {
+                        theCity = city;
+                    }
+                }//it would be smarter if we can map the Matched city only but i dont know how
+                //incredible stupid solution but it is what i can find for now
+                cityList.add(theCity);
+                b.setCities(cityList);
+                books.add(b);
+            }
+            return books;
+        } catch (Exception e) {
+            throw new NotFoundExceptionMapper(e.getMessage());
+        }
+    }
 }

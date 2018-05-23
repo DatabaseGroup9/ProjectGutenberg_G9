@@ -31,6 +31,4 @@ public interface IBook {
 
     public void setCities(List<ICity> citiesByBookTitle);
 
-
-
 }

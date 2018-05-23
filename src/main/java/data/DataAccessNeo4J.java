@@ -1,5 +1,6 @@
 package data;
 
+import entity.Author;
 import entity.Book;
 import entity.City;
 import interfaces.IDataAccessor;
@@ -13,8 +14,7 @@ import static org.neo4j.driver.v1.Values.parameters;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.Map;
 
 public class DataAccessNeo4J implements IDataAccessor {
 
@@ -26,13 +26,13 @@ public class DataAccessNeo4J implements IDataAccessor {
     }
 
     @Override
-    public List<IBook> getBooksByCityName(String cityName) {
+    public List<IBook> getBooksByCityName(String cityName) { // #Userstory 1
         List<IBook> list = new ArrayList();
 
         try {
             Driver driver = dbConnectorNeo4J.getDriver();
 
-            String query = "MATCH (b:Book)-[r:MENTIONS ]-(c:City) WHERE LOWER(c.name) = LOWER($cityName) RETURN b";
+            String query = "MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]-(c:City) WHERE LOWER(c.name) = LOWER($cityName) RETURN a,b";
 
             Session session = driver.session();
 
@@ -53,18 +53,18 @@ public class DataAccessNeo4J implements IDataAccessor {
     }
 
     @Override
-    public List<ICity> getCitiesByBookTitle(String bookTitle) {
+    public List<ICity> getCitiesByBookTitle(String bookTitle) { // #Userstory 2
         System.out.println("DataAccessNeo4j_getCitiesByBookTitle()");
         List<ICity> list = new ArrayList();
 
         try {
             Driver driver = dbConnectorNeo4J.getDriver();
 
-            String query = "MATCH (b:Book)-[r:MENTIONS]->(c:City) WHERE LOWER(b.title) = LOWER($bookTitle) RETURN c";
+            String query = "MATCH (b:Book)-[r:MENTIONS]->(c:City) WHERE LOWER(b.title) = LOWER($title) RETURN c";
 
             Session session = driver.session();
 
-            StatementResult result = session.run(query, parameters("bookTitle", bookTitle));
+            StatementResult result = session.run(query, parameters("title", bookTitle));
 
             list = getResultsCities(result);
             session.close();
@@ -76,25 +76,50 @@ public class DataAccessNeo4J implements IDataAccessor {
     }
 
     @Override
-    public List<IBook> getBooksByAuthorName(String authorName) {
+    public List<IBook> getMentionedCitiesByAuthorName(String authorName) { // #Userstory 3
         List<IBook> list = new ArrayList<>();
 
         try {
             Driver driver = dbConnectorNeo4J.getDriver();
 
-            String query = "MATCH (a:Author)-[r:AUTHORED ]-(b:Book) WHERE LOWER(a.name) = LOWER($authorName) RETURN b";
+            String query = "MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]->(c:City) WHERE LOWER(a.fullName) = LOWER($fullName) RETURN a,b,collect(c)";
 
             Session session = driver.session();
 
-            StatementResult result = session.run(query, parameters("authorName", authorName));
+            StatementResult result = session.run(query, parameters("fullName", authorName));
 
-            list = getResults(result);
+            list = getBooksWithCities(result);
             session.close();
 
-        /*
+            /*
          * todo Clean up exception handling.
          * Failing quietly on all exceptions is no good for debugging.
-         */
+             */
+        } catch (Exception e) {
+            //if (DEBUG) e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<IBook> getBooksByGeolocation(double lat, double lon) { // #Userstory 4
+        List<IBook> list = new ArrayList<>();
+
+        try {
+            Driver driver = dbConnectorNeo4J.getDriver();
+
+            String query = "MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]->(c:City) WHERE c.lat = $lat AND c.lon = $lon RETURN a,b,collect(c)";
+
+            Session session = driver.session();
+
+            StatementResult result = session.run(query, parameters("lon", lon, "lat",lat));
+
+            list = getBooksWithCities(result);
+            session.close();
+
+            /*
+         * todo Clean up exception handling.
+         * Failing quietly on all exceptions is no good for debugging.
+             */
         } catch (Exception e) {
             //if (DEBUG) e.printStackTrace();
         }
@@ -102,16 +127,18 @@ public class DataAccessNeo4J implements IDataAccessor {
     }
 
     private List<IBook> getResults(StatementResult result) {
-
         List<IBook> list = new ArrayList();
         while (result.hasNext()) {
             Record record = result.next();
             IBook b = new Book();
             System.out.println(record.toString());
             System.out.println(record.get("b").toString());
-            b.setId(record.get("b").get("id").asString());
+            b.setId(record.get("b").get("bookID").asString());
             b.setTitle(record.get("b").get("title").asString());
-            b.setAuthor(record.get("b").get("author").asString());
+            Author a = new Author();
+            a.setAuthorID(record.get("a").get("authorID").asString());
+            a.setFullName(record.get("a").get("fullName").asString());
+            b.setAuthor(a.getFullName());
             list.add(b);
         }
         return list;
@@ -136,4 +163,36 @@ public class DataAccessNeo4J implements IDataAccessor {
         driver.close();
 
     }
+
+    private List<IBook> getBooksWithCities(StatementResult result) {
+        List<IBook> list = new ArrayList();
+        while (result.hasNext()) {
+            Record record = result.next();
+            IBook b = new Book();
+            System.out.println(record.toString());
+            System.out.println(record.get("b").toString());
+            b.setId(record.get("b").get("bookID").asString());
+            b.setTitle(record.get("b").get("title").asString());
+            Author a = new Author();
+            a.setAuthorID(record.get("a").get("authorID").asString());
+            a.setFullName(record.get("a").get("fullName").asString());
+            b.setAuthor(a.getFullName());
+
+            List<ICity> cityList = new ArrayList();
+
+            for (int i = 0; i < record.get("collect(c)").size(); i++) {
+                String name = record.get("collect(c)").get(i).get("name").asString();
+                Double lon = record.get("collect(c)").get(i).get("lon").asDouble();
+                Double lat = record.get("collect(c)").get(i).get("lon").asDouble();
+                ICity city = new City(name, lat, lon);
+                cityList.add(city);
+                System.out.println(name);
+            }
+
+            b.setCities(cityList);
+            list.add(b);
+        }
+        return list;
+    }
+
 }

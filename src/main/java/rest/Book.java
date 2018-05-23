@@ -17,7 +17,7 @@ import java.util.List;
 /**
  *
  * @author Cherry Rose Semeña & Emmely Lundberg
- */
+ */     
 @Path("book")
 public class Book {
 
@@ -53,6 +53,26 @@ public class Book {
         }
     
     }
+    
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("geolocation")
+    public String getBooksByGeolocation(@QueryParam("db") String db, @QueryParam("lat") String lat,@QueryParam("lon") String lon) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
+        try {
+            IBookFacade facade = new BookFacade(new DataAccessFactory(), db);
+            List<IBook> list;
+            double lat_d = Double.parseDouble(lat);
+            double lon_d = Double.parseDouble(lon);
+            list = facade.getBooksByGeolocation(lat_d,lon_d);
+            String json = new Gson().toJson(list);
+            return json;
+        } catch (Exception e) {
+            throw e;
+        }
+    
+    }
+
 
 
 }
