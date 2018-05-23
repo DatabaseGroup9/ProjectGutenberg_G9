@@ -51,7 +51,7 @@ public class MongoUnitTest {
     @Test
     @FileParameters("src/test/java/test/resources/S3-validinput-mongodb.csv")
     public void getBooksByAuthor(String author, String title) throws NotFoundExceptionMapper {
-        List<IBook> books = dataAccessMongoDB.getBooksByAuthorName(author);
+        List<IBook> books = dataAccessMongoDB.getMentionedCitiesByAuthorName(author);
         assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
         assertThat(books.get(0).getCities().size(),CoreMatchers.is(greaterThanOrEqualTo(1)));
     }
