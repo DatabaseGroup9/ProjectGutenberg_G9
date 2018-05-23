@@ -1,38 +1,65 @@
 'use strict';
 
-var app = angular.module('myApp.view4', ['ngRoute'])
+var app = angular.module('myApp.view4', ['ngRoute', 'ui-leaflet'])
 
 app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/view4', {
-            templateUrl: 'app/view4/view4.html'
+            templateUrl: 'app/view4/view4.html',
+            controller: 'View4Ctrl'
         });
     }])
 
-app.controller('View2Ctrl', function ($scope, $http, markerCities) {
-    $scope.searchByBookTitle = function () {
+app.service('booksGlobal', function () {
+    var books = new Array();
+
+    return {
+        getBooks: function () {
+            return books;
+        },
+        setBooks: function (value) {
+            books = value;
+        }
+    };
+});
+
+app.controller('View4Ctrl', function ($scope, $http, booksGlobal) {
+    $scope.searchBooksByGeolocation = function () {
         $http({
             method: 'GET',
-            url: 'api/city',
-            params: {title: $scope.toSearch, db: $scope.db}
+            url: 'api/book/geolocation',
+            params: {lat: $scope.toSearch, lon:$scope.toSearch2, db: $scope.db}
         }).then(function successCallback(response) {
-            $scope.cities = response.data;
-            $scope.err = null;
-            $scope.markers = new Array();
-            angular.forEach($scope.cities, function (product) {
-                $scope.markers.push({
-                    lat: product.lat,
-                    lng: product.lon,
-                    message: product.name,
-                    focus: false,
-                    draggable: false
+            $scope.books = response.data;
+            $scope.markers = {};
+            angular.forEach($scope.books, function (book) {
+                $scope.cities = book.cities;
+                angular.forEach($scope.cities, function (city) {
+                    if (city.name in $scope.markers) {
+                        $scope.markers[city.name].message = $scope.markers[city.name].message + "<dd>" + book.title + "</dd>";
+                    } else {
+                        $scope.markers[city.name] = {
+                            lat: city.lat,
+                            lng: city.lon,
+                            message: "<dt>" + city.name + "</dt><dd>" + book.title + "</dd>",
+                            focus: false,
+                            draggable: false
+                        };
+                    }
                 });
+
             });
+
+            angular.forEach($scope.markers, function (marker) {
+                marker.message = "<dl>" + marker.message + "</dl>";
+            });
+
+            $scope.err = null;
         }, function errorCallback(response) {
-            console.log("ERROR FOUND::> " + response.data);
-            $scope.err = response.error;
+            console.log("ERROR FOUND::> " + JSON.stringify(response));
             $scope.cities = null;
+            $scope.books = null;
+            $scope.err = response.data.error;
         });
     };
-
 
 });
