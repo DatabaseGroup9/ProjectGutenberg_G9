@@ -26,11 +26,11 @@
         <table class="table" ng-if="books.length > 0" id="books">
             <thead>
             <th>Book Title ({{books.length}})</th>
-            <th>Author</th>
+            <th>Author fullname</th>
             </thead>
             <tbody>
                 <tr ng-repeat="item in books">
-                    <td>{{item.title}}</td><td>{{item.author}}</td>
+                    <td>{{item.bookTitle}}</td><td>{{item.author.fullName}}</td>
                 </tr>
             </tbody>
         </table>

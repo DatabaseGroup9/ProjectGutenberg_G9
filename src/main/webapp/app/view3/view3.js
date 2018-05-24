@@ -32,15 +32,14 @@ app.controller('View3Ctrl', function ($scope, $http, booksGlobal) {
             $scope.books = response.data;
             $scope.markers = {};
             angular.forEach($scope.books, function (book) {
-                $scope.book.cities = book.cities;
-                angular.forEach( $scope.book.cities, function (city) {
+                angular.forEach(book.cities, function (city) {
                     if (city.name in $scope.markers) {
-                        $scope.markers[city.name].message = $scope.markers[city.name].message + "<dd>" + book.title + "</dd>";
+                        $scope.markers[city.name].message = $scope.markers[city.name].message + "<dd>" + book.bookTitle + "</dd>";
                     } else {
                         $scope.markers[city.name] = {
                             lat: city.lat,
                             lng: city.lon,
-                            message: "<dt>" + city.name + "</dt><dd>" + book.title + "</dd>",
+                            message: "<dt>" + city.name + "</dt><dd>" + book.bookTitle + "</dd>",
                             focus: false,
                             draggable: false
                         };

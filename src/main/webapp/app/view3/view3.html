@@ -25,17 +25,17 @@
     <div class="row">
         <table id="summarytable" class="table" ng-if="books.length > 0">
             <thead>
-            <th>Title ({{books.length}})</th>
-            <th>Author</th>
+            <th>BookTitle ({{books.length}})</th>
+            <th>Author full name</th>
             <th>Cities</th>
             </thead>
             <tbody>
             <tr id= "books" ng-repeat="item in books">
-                <td>{{item.title}}</td><td>{{item.author}}</td>
+                <td>{{item.bookTitle}}</td><td>{{item.author.fullName}}</td>
                 <td>
                 <table class="table" ng-if="books.length > 0">
                         <thead>
-                            <th>Name ({{item.cities.length}})</th>
+                            <th>City Name ({{item.cities.length}})</th>
                             <th>Coordinates</th>
                         </thead>
                         <tbody>
