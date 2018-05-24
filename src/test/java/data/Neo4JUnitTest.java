@@ -52,4 +52,11 @@ public class Neo4JUnitTest {
         assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
     }
 
+    
+    @Test
+    @FileParameters("src/test/java/test/resources/S4-validinput-neo4j.csv")
+    public void getBooksByGeolocation(double lat, double lon, String bookTitle) throws NotFoundExceptionMapper {
+        List<IBook> books = dataAccessNeo4J.getBooksByGeolocation(lat,lon);
+        assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(bookTitle)));
+    }
 }
