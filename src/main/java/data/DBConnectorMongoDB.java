@@ -12,22 +12,20 @@ import java.util.Properties;
  *
  * @author Cherry Rose Semeña
  */
+public class DBConnectorMongoDB {
 
-public class DBConnectorMongoDB { 
-    
-    private MongoClient mongoClient= null;
-    
+    private MongoClient mongoClient = null;
+
 //    private String URI = "mongodb://localhost/dbtest";
 //      private String JAVA_ENV = System.getenv("JAVA_HOME");
 //      private String PROD_MONGOURI = System.getenv("MONGO_URI");
-      private String URI = "mongodb://myUserAdmin:abc123@206.189.21.241:27017";;
-//              "mongodb://myUserAdmin:abc123@206.189.21.241:27017/gutenberg";
-//    mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
-//    mongodb://root:secret@db1.server.com:27027
-      
-    
-    public MongoClient getConnection(){
-        try{
+    private String URI = "mongodb://"+USERNAME+":"+PASSWORD+"@206.189.21.241:"+PORT;
+    private static final String PORT = "27017"; // best left empty for default port
+    private static final String USERNAME = "myUserAdmin";
+    private static final String PASSWORD = "abc123";
+
+    public MongoClient getConnection() {
+        try {
 //            if(PROD_MONGOURI != null){
 //                URI = PROD_MONGOURI;
 //            }else{
@@ -36,17 +34,17 @@ public class DBConnectorMongoDB {
 //                URI = ini.get("header", "MONGO_URI");
 //                System.out.println(URI);
 //            }
-           this.mongoClient = new MongoClient(new MongoClientURI(URI));
-        
-        }catch(Exception e){
+            this.mongoClient = new MongoClient(new MongoClientURI(URI));
+
+        } catch (Exception e) {
             System.out.println("ERROR IN MONGODB CONNECTION" + e.toString());
         }
-         
+
         return this.mongoClient;
     }
-    
-    public void close(){
+
+    public void close() {
         this.mongoClient.close();
     }
-    
+
 }

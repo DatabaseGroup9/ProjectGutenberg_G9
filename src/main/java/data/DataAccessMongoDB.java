@@ -28,7 +28,7 @@ public class DataAccessMongoDB implements IDataAccessor {
     private DBConnectorMongoDB connector = null;
     private static MongoClient con = null;
     private String dbname = "gutenberg";
-    private String col = "books";
+    private String col = "books2";
 
     public DataAccessMongoDB() {
         this.connector = new DBConnectorMongoDB();
@@ -78,7 +78,7 @@ public class DataAccessMongoDB implements IDataAccessor {
             ObjectMapper mapper = new ObjectMapper();
             MongoDatabase database = con.getDatabase(dbname);
             MongoCollection coll = database.getCollection(col);
-            FindIterable<Document> findIterable = coll.find(eq("title", bookTitle));
+            FindIterable<Document> findIterable = coll.find(eq("bookTitle", bookTitle));
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);
@@ -102,7 +102,7 @@ public class DataAccessMongoDB implements IDataAccessor {
             ObjectMapper mapper = new ObjectMapper();
             MongoDatabase database = con.getDatabase(dbname);
             MongoCollection coll = database.getCollection(col);
-            FindIterable<Document> findIterable = coll.find(eq("author", authorName));
+            FindIterable<Document> findIterable = coll.find(eq("author.fullName", authorName));
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 System.out.println("THE JSON STRING IS " + jsonStr);

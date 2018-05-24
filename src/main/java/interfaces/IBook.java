@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import entity.Author;
 import entity.City;
 
 import java.util.List;
@@ -25,10 +26,10 @@ public interface IBook {
 
     void setTitle(String title);
 
-    String getAuthor();
+    Author getAuthor();
 
-    void setAuthor(String author);
+    void setAuthor(Author author);
 
     public void setCities(List<ICity> citiesByBookTitle);
-
+    
 }

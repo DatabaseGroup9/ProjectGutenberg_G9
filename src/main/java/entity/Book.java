@@ -17,38 +17,32 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Book implements IBook{
     String id;
-    String title;
-    String author;
+    String bookTitle;
+    Author author;
     List<ICity> cities;
 
     public Book(){
 
     }
-    public Book(String title, String author){
-        this.title = title;
+    public Book(String title, Author author){
+        this.bookTitle = title;
         this.author = author;
     }
-    public Book(String title, String author, List<ICity> cities){
-        this.title = title;
+    public Book(String title, Author author, List<ICity> cities){
+        this.bookTitle = title;
         this.author = author;
         this.cities = cities;
 
     }
     public String getTitle() {
-        return title;
+        return bookTitle;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.bookTitle = title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+   
 
     public List<ICity> getCities() {
         return cities;
@@ -73,10 +67,26 @@ public class Book implements IBook{
     public String toString() {
         return "Book{" +
                 "id='" + id + '\'' +
-                ", title='" + title + '\'' +
+                ", title='" + bookTitle + '\'' +
                 ", author='" + author + '\'' +
                 ", cities=" + cities +
                 '}';
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     

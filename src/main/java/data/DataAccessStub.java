@@ -1,5 +1,6 @@
 package data;
 
+import entity.Author;
 import interfaces.IDataAccessor;
 import entity.Book;
 import httpErrors.NotFoundExceptionMapper;
@@ -14,7 +15,7 @@ import java.util.List;
 public class DataAccessStub implements IDataAccessor {
 
     private String name = "DataAccessStub";
-
+    
     @Override
     public List<IBook> getBooksByCityName(String cityName) throws NotFoundExceptionMapper {
         String[] notfound = new String[]{"Lyngby","America", "Europe"};
@@ -23,15 +24,21 @@ public class DataAccessStub implements IDataAccessor {
                 throw new NotFoundExceptionMapper("NotFound");
             }
         }
-
+        Author a = new Author("1", "Hannah Lynch");
+        Author a2 = new Author("1", "John S. C. Abbott");
+        Author a3 = new Author("1", "Lawrence Gilman");
+        Author a4 = new Author("1", "Various");
+        Author a5 = new Author("1", "Benjamin Moore Norman");
+        Author a6 = new Author("1", "Lewis Carroll");
+        Author a7 = new Author("1", "Jane Austen");
         List<IBook> books = new ArrayList<IBook>();
-        IBook book1 = new Book("Autobiography of a Child", "Hannah Lynch");
-        IBook book2 = new Book("Miles Standish", "John S. C. Abbott");
-        IBook book3 = new Book("Stories of Symphonic Music", "Lawrence Gilman");
-        IBook book4 = new Book("Captain Billy's Whiz Bang, Vol. 2, No. 21, June, 1921 ", "Various");
-        IBook book5 = new Book("Rambles in Yucatan", "Benjamin Moore Norman");
-        IBook book6 = new Book("Alice's Adventures in Wonderland", "Lewis Carroll");
-        IBook book7 = new Book("Pride and Prejudice", "Jane Austen");
+        IBook book1 = new Book("Autobiography of a Child", a);
+        IBook book2 = new Book("Miles Standish", a2);
+        IBook book3 = new Book("Stories of Symphonic Music", a3);
+        IBook book4 = new Book("Captain Billy's Whiz Bang, Vol. 2, No. 21, June, 1921 ", a4);
+        IBook book5 = new Book("Rambles in Yucatan", a5);
+        IBook book6 = new Book("Alice's Adventures in Wonderland", a6);
+        IBook book7 = new Book("Pride and Prejudice", a7);
         if (cityName.length() > 5) {
             books.add(book1);
         } else {
@@ -77,14 +84,20 @@ public class DataAccessStub implements IDataAccessor {
         }
 
         List<IBook> books = new ArrayList<>();
-
-        books.add(new Book("Autobiography of a Child", "Hannah Lynch"));
-        books.add(new Book("Miles Standish", "John S. C. Abbott"));
-        books.add(new Book("Stories of Symphonic Music", "Lawrence Gilman"));
-        books.add(new Book("Captain Billy's Whiz Bang, Vol. 2, No. 21, June, 1921 ", "Various"));
-        books.add(new Book("Rambles in Yucatan", "Benjamin Moore Norman"));
-        books.add(new Book("Alice's Adventures in Wonderland", "Lewis Carroll"));
-        books.add(new Book("Pride and Prejudice", "Jane Austen"));
+        Author a = new Author("1", "Hannah Lynch");
+        Author a2 = new Author("1", "John S. C. Abbott");
+        Author a3 = new Author("1", "Lawrence Gilman");
+        Author a4 = new Author("1", "Various");
+        Author a5 = new Author("1", "Benjamin Moore Norman");
+        Author a6 = new Author("1", "Lewis Carroll");
+        Author a7 = new Author("1", "Jane Austen");
+        IBook book1 = new Book("Autobiography of a Child", a);
+        IBook book2 = new Book("Miles Standish", a2);
+        IBook book3 = new Book("Stories of Symphonic Music", a3);
+        IBook book4 = new Book("Captain Billy's Whiz Bang, Vol. 2, No. 21, June, 1921 ", a4);
+        IBook book5 = new Book("Rambles in Yucatan", a5);
+        IBook book6 = new Book("Alice's Adventures in Wonderland", a6);
+        IBook book7 = new Book("Pride and Prejudice", a7);
 
         return books.subList(0, authorName.length() < 6 ? authorName.length() : 6);
     }

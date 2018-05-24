@@ -60,11 +60,11 @@ public class DataAccessNeo4J implements IDataAccessor {
         try {
             Driver driver = dbConnectorNeo4J.getDriver();
 
-            String query = "MATCH (b:Book)-[r:MENTIONS]->(c:City) WHERE LOWER(b.title) = LOWER($title) RETURN c";
+            String query = "MATCH (b:Book)-[r:MENTIONS]->(c:City) WHERE LOWER(b.bookTitle) = LOWER($bookTitle) RETURN c";
 
             Session session = driver.session();
 
-            StatementResult result = session.run(query, parameters("title", bookTitle));
+            StatementResult result = session.run(query, parameters("bookTitle", bookTitle));
 
             list = getResultsCities(result);
             session.close();
@@ -134,11 +134,14 @@ public class DataAccessNeo4J implements IDataAccessor {
             System.out.println(record.toString());
             System.out.println(record.get("b").toString());
             b.setId(record.get("b").get("bookID").asString());
-            b.setTitle(record.get("b").get("title").asString());
+            b.setTitle(record.get("b").get("bookTitle").asString());
             Author a = new Author();
             a.setAuthorID(record.get("a").get("authorID").asString());
             a.setFullName(record.get("a").get("fullName").asString());
-            b.setAuthor(a.getFullName());
+//            a.setSurName(record.get("a").get("surName").asString());
+//            a.setFirstName(record.get("a").get("firstName").asString());
+//            a.setSurName(record.get("a").get("title").asString());
+            b.setAuthor(a);
             list.add(b);
         }
         return list;
@@ -172,18 +175,21 @@ public class DataAccessNeo4J implements IDataAccessor {
             System.out.println(record.toString());
             System.out.println(record.get("b").toString());
             b.setId(record.get("b").get("bookID").asString());
-            b.setTitle(record.get("b").get("title").asString());
+            b.setTitle(record.get("b").get("bookTitle").asString());
             Author a = new Author();
             a.setAuthorID(record.get("a").get("authorID").asString());
             a.setFullName(record.get("a").get("fullName").asString());
-            b.setAuthor(a.getFullName());
+//            a.setSurName(record.get("a").get("surName").asString());
+//            a.setFirstName(record.get("a").get("firstName").asString());
+//            a.setSurName(record.get("a").get("title").asString());
+            b.setAuthor(a);
 
             List<ICity> cityList = new ArrayList();
 
             for (int i = 0; i < record.get("collect(c)").size(); i++) {
                 String name = record.get("collect(c)").get(i).get("name").asString();
                 Double lon = record.get("collect(c)").get(i).get("lon").asDouble();
-                Double lat = record.get("collect(c)").get(i).get("lon").asDouble();
+                Double lat = record.get("collect(c)").get(i).get("lat").asDouble();
                 ICity city = new City(name, lat, lon);
                 cityList.add(city);
                 System.out.println(name);
