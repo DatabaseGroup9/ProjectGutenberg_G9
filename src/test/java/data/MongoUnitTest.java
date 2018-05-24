@@ -21,7 +21,6 @@ import org.junit.runner.RunWith;
  *
  * @author Cherry Rose Semeña
  */
-@Ignore
 @RunWith(JUnitParamsRunner.class)
 public class MongoUnitTest {
 
@@ -34,10 +33,10 @@ public class MongoUnitTest {
 
     @Test
     @FileParameters("src/test/java/test/resources/S1-validinput-mongodb.csv")
-    public void getBooksByCityTest(String city, String title, Author author) throws NotFoundExceptionMapper {
+    public void getBooksByCityTest(String city, String title, String authorFullName) throws NotFoundExceptionMapper {
         List<IBook> books = dataAccessMongoDB.getBooksByCityName(city);
         assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
-        assertThat(books.get(0).getAuthor(), CoreMatchers.is(equalTo(author)));
+        assertThat(books.get(0).getAuthor().getFullName(), CoreMatchers.is(equalTo(authorFullName)));
     }
     
     @Test
@@ -52,11 +51,19 @@ public class MongoUnitTest {
     @Test
     @FileParameters("src/test/java/test/resources/S3-validinput-mongodb.csv")
     public void getBooksByAuthor(String author, String title) throws NotFoundExceptionMapper {
+        author = author.replace("_", ",");
         List<IBook> books = dataAccessMongoDB.getMentionedCitiesByAuthorName(author);
         assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
         assertThat(books.get(0).getCities().size(),CoreMatchers.is(greaterThanOrEqualTo(1)));
     }
     
+    @Test
+    @FileParameters("src/test/java/test/resources/S4-validinput-mongodb.csv")
+    public void getBooksByGeolocation(double lat, double lon,String title) throws NotFoundExceptionMapper {
+        List<IBook> books = dataAccessMongoDB.getBooksByGeolocation(lat,lon);
+        assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
+        assertThat(books.get(0).getCities().size(),CoreMatchers.is(greaterThanOrEqualTo(1)));
+    }
     @Test
     public void getNameTest(){
         String dbname = dataAccessMongoDB.getName();
