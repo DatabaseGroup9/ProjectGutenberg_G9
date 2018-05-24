@@ -32,8 +32,8 @@ app.controller('View4Ctrl', function ($scope, $http, booksGlobal) {
             $scope.books = response.data;
             $scope.markers = {};
             angular.forEach($scope.books, function (book) {
-                $scope.cities = book.cities;
-                angular.forEach($scope.cities, function (city) {
+                $scope.book.cities = book.cities;
+                angular.forEach($scope.book.cities, function (city) {
                     if (city.name in $scope.markers) {
                         $scope.markers[city.name].message = $scope.markers[city.name].message + "<dd>" + book.title + "</dd>";
                     } else {

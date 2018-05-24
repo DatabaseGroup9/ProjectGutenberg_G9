@@ -25,7 +25,7 @@
     <div class="row">
         <table id="summarytable" class="table" ng-if="books.length > 0">
             <thead>
-            <th>Title</th>
+            <th>Title ({{books.length}})</th>
             <th>Author</th>
             <th>Cities</th>
             </thead>
@@ -35,11 +35,11 @@
                 <td>
                 <table class="table" ng-if="books.length > 0">
                         <thead>
-                            <th>Name</th>
+                            <th>Name ({{item.cities.length}})</th>
                             <th>Coordinates</th>
                         </thead>
                         <tbody>
-                            <tr id="cities" ng-repeat="city in cities">
+                            <tr id="cities" ng-repeat="city in item.cities">
                                 <td>{{city.name}}</td><td>{{city.lon + ", " + city.lat}}</td>
                             </tr>
                         </tbody>
