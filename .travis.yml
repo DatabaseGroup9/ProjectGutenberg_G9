@@ -1,3 +1,11 @@
 language: java
 script: mvn test
 jdk: oraclejdk8
+deploy:
+  provider: releases
+  api_key: f4154f8008565584ce0b0de23df8fc194b8ba4b9
+  file_glob: true
+  file: target/*SNAPSHOT.war
+  skip_cleanup: true
+  on:
+    tags: true
