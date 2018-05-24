@@ -1,5 +1,6 @@
 package data;
 
+import entity.Author;
 import httpErrors.NotFoundExceptionMapper;
 import interfaces.IBook;
 import interfaces.ICity;
@@ -33,7 +34,7 @@ public class MongoUnitTest {
 
     @Test
     @FileParameters("src/test/java/test/resources/S1-validinput-mongodb.csv")
-    public void getBooksByCityTest(String city, String title, String author) throws NotFoundExceptionMapper {
+    public void getBooksByCityTest(String city, String title, Author author) throws NotFoundExceptionMapper {
         List<IBook> books = dataAccessMongoDB.getBooksByCityName(city);
         assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
         assertThat(books.get(0).getAuthor(), CoreMatchers.is(equalTo(author)));
