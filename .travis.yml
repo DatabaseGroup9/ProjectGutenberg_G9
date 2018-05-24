@@ -8,4 +8,4 @@ deploy:
   file: target/*SNAPSHOT.war
   skip_cleanup: true
   on:
-    tags: true
+    tags: false
