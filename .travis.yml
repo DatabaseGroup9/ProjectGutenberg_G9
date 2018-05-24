@@ -12,4 +12,4 @@ deploy:
     branches:
       only:
         - master
-    tags: true
+    tags: false
