@@ -1,21 +1,23 @@
 package data;
 
 import entity.Author;
+import entity.Book;
+import entity.City;
 import httpErrors.NotFoundExceptionMapper;
 import interfaces.IBook;
 import interfaces.ICity;
-import java.util.List;
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 import org.hamcrest.CoreMatchers;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.is;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import java.util.List;
+import org.hamcrest.Matchers;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.runner.RunWith;
 
 /**
  *
@@ -32,42 +34,43 @@ public class MongoUnitTest {
     }
 
     @Test
-    @FileParameters("src/test/java/test/resources/S1-validinput-mongodb.csv")
-    public void getBooksByCityTest(String city, String title, String authorFullName) throws NotFoundExceptionMapper {
+    @FileParameters("src/test/java/test/resources/S1-validinput.csv")
+    public void getBooksByCityTest(String city, String bookTitle, String authorFullName) throws NotFoundExceptionMapper {
         List<IBook> books = dataAccessMongoDB.getBooksByCityName(city);
-        assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
-        assertThat(books.get(0).getAuthor().getFullName(), CoreMatchers.is(equalTo(authorFullName)));
+        authorFullName = authorFullName.replace("_", ",");
+        assertThat(books, Matchers.<Book>hasItem(Matchers.hasProperty("bookTitle", equalTo(bookTitle))));
+        //assertThat(books, Matchers.<Book>hasItem(Matchers.hasProperty("author.authorFullName", equalTo(bookTitle))));
     }
     
     @Test
-    @FileParameters("src/test/java/test/resources/S2-validinput-mongodb.csv")
-    public void getCitiesByTitleTest(String title, String name, double lat, double lon) throws NotFoundExceptionMapper {
-        List<ICity> cities = dataAccessMongoDB.getCitiesByBookTitle(title);
-        assertThat(cities.get(0).getName(), CoreMatchers.is(equalTo(name)));
-        assertThat(cities.get(0).getLat(),CoreMatchers.is(equalTo(lat)));
-        assertThat(cities.get(0).getLon(),CoreMatchers.is(equalTo(lon)));
+    @FileParameters("src/test/java/test/resources/S2-validinput.csv")
+    public void getCitiesByTitleTest(String bookTitle, String name, double lat, double lon) throws NotFoundExceptionMapper {
+        List<ICity> cities = dataAccessMongoDB.getCitiesByBookTitle(bookTitle);
+        
+        assertThat(cities, Matchers.<City>hasItem(Matchers.hasProperty("name", equalTo(name))));
+        assertThat(cities, Matchers.<City>hasItem(Matchers.hasProperty("lat", equalTo(lat))));
+        assertThat(cities, Matchers.<City>hasItem(Matchers.hasProperty("lon", equalTo(lon))));
     }
     
     @Test
-    @FileParameters("src/test/java/test/resources/S3-validinput-mongodb.csv")
-    public void getBooksByAuthor(String author, String title) throws NotFoundExceptionMapper {
-        author = author.replace("_", ",");
-        List<IBook> books = dataAccessMongoDB.getMentionedCitiesByAuthorName(author);
-        assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
-        assertThat(books.get(0).getCities().size(),CoreMatchers.is(greaterThanOrEqualTo(1)));
+    @FileParameters("src/test/java/test/resources/S3-validinput.csv")
+    public void getCitiesMentionedInBookByAuthor(String bookTitle, String authorFullName) throws NotFoundExceptionMapper {
+        authorFullName = authorFullName.replace("_", ",");
+        List<IBook> books = dataAccessMongoDB.getMentionedCitiesByAuthorName(authorFullName);
+        assertThat(books,Matchers.<Book>hasItem(Matchers.hasProperty("bookTitle",equalTo(bookTitle))));
     }
     
     @Test
-    @FileParameters("src/test/java/test/resources/S4-validinput-mongodb.csv")
-    public void getBooksByGeolocation(double lat, double lon,String title) throws NotFoundExceptionMapper {
+    @FileParameters("src/test/java/test/resources/S4-validinput.csv")
+    public void getBooksByGeolocation(double lat, double lon,String bookTitle, String authorFullName) throws NotFoundExceptionMapper {
         List<IBook> books = dataAccessMongoDB.getBooksByGeolocation(lat,lon);
-        assertThat(books.get(0).getTitle(), CoreMatchers.is(equalTo(title)));
-        assertThat(books.get(0).getCities().size(),CoreMatchers.is(greaterThanOrEqualTo(1)));
+        authorFullName = authorFullName.replace("_", ",");
+        assertThat(books,Matchers.<Book>hasItem(Matchers.hasProperty("bookTitle",equalTo(bookTitle))));
     }
     @Test
     public void getNameTest(){
         String dbname = dataAccessMongoDB.getName();
-        assertThat(dbname, is("DataAccessMongoDB"));
+        assertThat(dbname, equalTo("DataAccessMongoDB"));
     }
 
 }
