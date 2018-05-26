@@ -32,8 +32,8 @@ public class DataAccessStub implements IDataAccessor {
         ICity city3 = new City("Copenhagen", 55.675940000000004, 12.56553);
         List<ICity> list = new ArrayList();
         list.add(city);
-        Author a = new Author("1", "Thompson_ Norris");
-        Author a2 = new Author("1", "United_ Non");
+        Author a = new Author("1", "Thompson, Norris");
+        Author a2 = new Author("1", "United, Non");
         List<IBook> books = new ArrayList<IBook>();
         IBook book1 = new Book("Mother: A Story", a);
         IBook book2 = new Book("The 2000 CIA World Factbook", a2);
