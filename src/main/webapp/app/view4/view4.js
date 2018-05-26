@@ -26,7 +26,7 @@ app.controller('View4Ctrl', function ($scope, $http, booksGlobal) {
     $scope.searchBooksByGeolocation = function () {
         $http({
             method: 'GET',
-            url: 'api/book/geolocation',
+            url: 'api/books/findByGeolocation',
             params: {lat: $scope.toSearch, lon:$scope.toSearch2, db: $scope.db}
         }).then(function successCallback(response) {
             $scope.books = response.data;

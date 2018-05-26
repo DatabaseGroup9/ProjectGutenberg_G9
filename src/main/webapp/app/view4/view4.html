@@ -25,6 +25,10 @@
             <button id= "submit" type="submit" class="btn btn-success">Search</button>
         </form>
     </div>
+
+    <div ng-controller="View4Ctrl">
+        <leaflet markers="markers" width="100%" height="480px"></leaflet>
+    </div>
     <div class="row">
         <table id="summarytable" class="table" ng-if="books.length > 0">
             <thead>
@@ -56,8 +60,4 @@
             <strong>ERROR: </strong> {{err.message}}
         </div>
     </div>
-</div>
-
-<div ng-controller="View4Ctrl">
-    <leaflet markers="markers" width="100%" height="480px"></leaflet>
 </div>

@@ -29,7 +29,7 @@ app.controller('View2Ctrl', function ($scope, $http, markerCities) {
     $scope.searchByBookTitle = function () {
         $http({
             method: 'GET',
-            url: 'api/city',
+            url: 'api/cities/findByBookTitle',
             params: {title: $scope.toSearch, db: $scope.db}
         }).then(function successCallback(response) {
             $scope.cities = response.data;

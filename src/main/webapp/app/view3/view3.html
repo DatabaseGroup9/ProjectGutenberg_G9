@@ -23,6 +23,10 @@
             <button id= "submit" type="submit" class="btn btn-success">Search</button>
         </form>
     </div>
+
+    <div ng-controller="View3Ctrl">
+        <leaflet markers="markers" width="100%" height="480px"></leaflet>
+    </div>
     <div class="row">
         <table id="summarytable" class="table" ng-if="books.length > 0">
             <thead>
@@ -31,22 +35,22 @@
             <th>Cities</th>
             </thead>
             <tbody>
-            <tr id= "books" ng-repeat="item in books">
-                <td>{{item.bookTitle}}</td><td>{{item.author.fullName}}</td>
-                <td>
-                <table class="table" ng-if="books.length > 0">
-                        <thead>
+                <tr id= "books" ng-repeat="item in books">
+                    <td>{{item.bookTitle}}</td><td>{{item.author.fullName}}</td>
+                    <td>
+                        <table class="table" ng-if="books.length > 0">
+                            <thead>
                             <th>City Name ({{item.cities.length}})</th>
                             <th>Coordinates</th>
-                        </thead>
-                        <tbody>
-                            <tr id="cities" ng-repeat="city in item.cities">
-                                <td>{{city.name}}</td><td>{{city.lon + ", " + city.lat}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="cities" ng-repeat="city in item.cities">
+                                    <td>{{city.name}}</td><td>{{city.lon + ", " + city.lat}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
@@ -54,8 +58,4 @@
             <strong>ERROR: </strong> {{err.message}}
         </div>
     </div>
-</div>
-
-<div ng-controller="View3Ctrl">
-    <leaflet markers="markers" width="100%" height="480px"></leaflet>
 </div>

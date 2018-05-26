@@ -15,7 +15,7 @@ var app = angular.module('myApp.view1', ['ngRoute'])
             $scope.searchByCity = function () {
                 $http({
                     method: 'GET',
-                    url: 'api/book/city',
+                    url: 'api/books/findByCity',
                     params: {city: $scope.toSearch, db: $scope.db}
                 }).then(function successCallback(response) {
                     $scope.books = response.data;

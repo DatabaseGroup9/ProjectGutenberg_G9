@@ -26,7 +26,7 @@ app.controller('View3Ctrl', function ($scope, $http, booksGlobal) {
     $scope.searchCitiesByBooksOfAuthor = function () {
         $http({
             method: 'GET',
-            url: 'api/author',
+            url: 'api/books/findByAuthor',
             params: {author: $scope.toSearch, db: $scope.db}
         }).then(function successCallback(response) {
             $scope.books = response.data;
