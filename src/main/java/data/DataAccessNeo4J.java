@@ -32,7 +32,9 @@ public class DataAccessNeo4J implements IDataAccessor {
         try {
             Driver driver = dbConnectorNeo4J.getDriver();
 
-            String query = "MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]-(c:City) WHERE LOWER(c.name) = LOWER($cityName) RETURN a,b";
+            String query = "MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]-(c:City) "
+                    + "WHERE LOWER(c.name) = LOWER($cityName) "
+                    + "RETURN a,b ORDER BY b.bookTitle";
 
             Session session = driver.session();
 
@@ -60,7 +62,9 @@ public class DataAccessNeo4J implements IDataAccessor {
         try {
             Driver driver = dbConnectorNeo4J.getDriver();
 
-            String query = "MATCH (b:Book)-[r:MENTIONS]->(c:City) WHERE LOWER(b.bookTitle) = LOWER($bookTitle) RETURN c";
+            String query = "MATCH (b:Book)-[r:MENTIONS]->(c:City) "
+                    + "WHERE LOWER(b.bookTitle) = LOWER($bookTitle) "
+                    + "RETURN c ORDER BY c.name";
 
             Session session = driver.session();
 
@@ -82,7 +86,9 @@ public class DataAccessNeo4J implements IDataAccessor {
         try {
             Driver driver = dbConnectorNeo4J.getDriver();
 
-            String query = "MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]->(c:City) WHERE LOWER(a.fullName) = LOWER($fullName) RETURN a,b,collect(c)";
+            String query = "MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]->(c:City) "
+                    + "WHERE LOWER(a.fullName) = LOWER($fullName) "
+                    + "RETURN a,b,collect(c) ORDER BY a.fullName";
 
             Session session = driver.session();
 
@@ -107,7 +113,9 @@ public class DataAccessNeo4J implements IDataAccessor {
         try {
             Driver driver = dbConnectorNeo4J.getDriver();
 
-            String query = "MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]->(c:City) WHERE c.lat = $lat AND c.lon = $lon RETURN a,b,collect(c)";
+            String query = "MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]->(c:City)"
+                    + " WHERE c.lat = $lat AND c.lon = $lon "
+                    + "RETURN a,b,collect(c) ORDER BY a.fullName";
 
             Session session = driver.session();
 

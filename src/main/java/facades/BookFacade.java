@@ -38,7 +38,7 @@ public class BookFacade implements IBookFacade {
             if (city != null && city.length() > 0) {
                 books = dataAccessFactory.getDataAccessor(this.database).getBooksByCityName(city);
                 if (books.isEmpty()) {
-                    throw new NotFoundExceptionMapper("No Book Found");
+                    throw new NotFoundExceptionMapper("No Books Found");
                 }
                 return books;
             } else {
@@ -61,7 +61,7 @@ public class BookFacade implements IBookFacade {
             List<IBook> books = new ArrayList<>();
             books = dataAccessFactory.getDataAccessor(this.database).getMentionedCitiesByAuthorName(author);
             if (books.isEmpty()) {
-                throw new NotFoundExceptionMapper("No Book Found");
+                throw new NotFoundExceptionMapper("No Books Found");
             }
             return books;
         } catch (NotFoundExceptionMapper e) {
@@ -81,14 +81,14 @@ public class BookFacade implements IBookFacade {
     public List<IBook> getBooksByGeolocation(double lat, double lon) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
 //        author = author.trim();
 //
-//        if (!helper.checkValidCityInput(author)) {
+//        if (!helper.checkValidGeolocationInput(lat,lon)) {
 //            throw new InvalidInputExceptionMapper("Invalid Input");
 //        }
         try {
             List<IBook> books = new ArrayList<>();
             books = dataAccessFactory.getDataAccessor(this.database).getBooksByGeolocation(lat,lon);
             if (books.isEmpty()) {
-                throw new NotFoundExceptionMapper("No Book Found");
+                throw new NotFoundExceptionMapper("No Books Found");
             }
             return books;
         } catch (NotFoundExceptionMapper e) {

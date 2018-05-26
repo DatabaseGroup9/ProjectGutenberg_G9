@@ -20,17 +20,17 @@ import interfaces.ICityFacade;
  *
  * @author Cherry Rose Semeña & Emmely Lundberg
  */
-@Path("city")
+@Path("cities")
 public class City {
 
     @GET
+    @Path("findByBookTitle")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCities(@QueryParam("db") String db, @QueryParam("title") String title) throws NotFoundExceptionMapper, Exception {
 
         /**
          * todo make setting come from Http Headers?
          */
-        
         try {
 //            System.out.println("THE TITLE IS " + title);
             ICityFacade facade = new CityFacade(new DataAccessFactory(), db);

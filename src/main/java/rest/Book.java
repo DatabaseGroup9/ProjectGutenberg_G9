@@ -8,6 +8,7 @@ import httpErrors.InvalidInputExceptionMapper;
 import httpErrors.NotFoundExceptionMapper;
 import interfaces.IBook;
 import interfaces.IBookFacade;
+import java.util.ArrayList;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import javax.ws.rs.*;
@@ -18,12 +19,12 @@ import java.util.List;
  *
  * @author Cherry Rose Semeña & Emmely Lundberg
  */     
-@Path("book")
+@Path("books")
 public class Book {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("city") //search by city
+    @Path("findByCity") //search by city
     public String getBooksByCity(@QueryParam("db") String db, @QueryParam("city") String city) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
         try {
             IBookFacade facade = new BookFacade(new DataAccessFactory(), db);
@@ -40,24 +41,27 @@ public class Book {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("author")
-    public String getBooksByAuthor(@QueryParam("db") String db, @QueryParam("author") String author) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
-        try {
-            IBookFacade facade = new BookFacade(new DataAccessFactory(), db);
-            List<IBook> list;
-            list = facade.getBooksByAuthorName(author);
-            String json = new Gson().toJson(list);
-            return json;
-        } catch (Exception e) {
-            throw e;
-        }
-    
+    @Path("findByAuthor")
+    public String getBooksAndCitiesByAuthor(@QueryParam("db") String db, @QueryParam("author") String author) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
+        List<IBook> books = new ArrayList<>();
+
+        IBookFacade bookFacade = new BookFacade(new DataAccessFactory(), db);
+       // ICityFacade cityFacade = new CityFacade(new DataAccessFactory(), db);
+        books = bookFacade.getBooksByAuthorName(author);
+
+//        for(IBook book : books){
+//            book.setCities(cityFacade.getCitiesByBookTitle(book.getTitle()));
+//        }
+
+
+        String json = new Gson().toJson(books);
+        return json;
     }
     
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("geolocation")
+    @Path("findByGeolocation")
     public String getBooksByGeolocation(@QueryParam("db") String db, @QueryParam("lat") String lat,@QueryParam("lon") String lon) throws NotFoundExceptionMapper, InvalidInputExceptionMapper {
         try {
             IBookFacade facade = new BookFacade(new DataAccessFactory(), db);
