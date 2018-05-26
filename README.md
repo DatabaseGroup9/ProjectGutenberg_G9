@@ -1,25 +1,26 @@
 [![Build Status](https://travis-ci.org/DatabaseGroup9/ProjectGutenberg_G9.svg?branch=master)](https://travis-ci.org/DatabaseGroup9/ProjectGutenberg_G9)
 
-
 # Gutenberg-Geolocation
 
-
-> Manifesto for Agile Software Development
-
+### _Which database engines are used._ <br>
 
 
-> We are uncovering better ways of developing
-> software by doing it and helping others do it.
-> Through this work we have come to value:
+### _How data is modeled in the database._ <br>
 
->Individuals and interactions over processes and tools
 
->Working software over comprehensive documentation
+### _How data is modeled in your application._ <br>
 
->Customer collaboration over contract negotiation
 
->Responding to change over following a plan
+### _How the data is imported._ <br>
 
->That is, while there is value in the items on
->the right, we value the items on the left more. 
-[source](http://agilemanifesto.org/)
+
+### _Behavior of query test set._ <br>
+#### A. Query Runtime is influenced by the DB engine <br>
+
+#### B. Query Runtime is influenced by the application frontend <br>
+
+### _Recommendation_ <br>
+_which database engine to use in such a project for production_
+
+OBS Remember to use the approprite diagram notaions for documentation.
+
