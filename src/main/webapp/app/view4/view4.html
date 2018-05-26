@@ -16,9 +16,11 @@
                 </select>
                 <br><br>
                 <label>Search Books that mentioned the City given with Geolocation:</label>
-                <input id= "lat" type="text" style="width:10em;" placeholder="lat" name="lat" class="form-control" ng-model="toSearch">
-                <input id= "lon" type="text" style="width:10em;" placeholder="lon" name="lon" class="form-control" ng-model="toSearch2">
+                <input id= "lat" type="text" style="width:10em;" placeholder="lat coordinate" name="lat" class="form-control" ng-model="toSearch">
+                <input id= "lon" type="text" style="width:10em;" placeholder="long coordinate" name="lon" class="form-control" ng-model="toSearch2">
             </div>
+            </br>
+            <i>Example: Copenhagen 55.67594 (lat), 12.56553 (lon)</i>
             <br><br>
             <button id= "submit" type="submit" class="btn btn-success">Search</button>
         </form>
