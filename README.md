@@ -49,7 +49,7 @@ MATCH (c:City)<-[:MENTIONS]-(b:Book)<-[:AUTHORED]-(a:Author) return c,b,a limit 
 ![data](https://github.com/DatabaseGroup9/Documentation/blob/master/images/ClassDiagram_Data.png)
 
 ### _How the data is imported?_ <br>
-
+> _The data was fetched from Project Gutenberg Data Collection and processed by our PGParser and extracted the relevant data for   the final project such as the book title, authors, and cities mentioned, see [PGParser](https://github.com/DatabaseGroup9/PGParser) for complete details. We created Digital Ocean droplets for each database, and imported the returned csv files from PGParser to MongoDB and Neo4J by using a Java Application project here, [parseMaster](https://github.com/DatabaseGroup9/parseMaster) and phpAdmin for MySQL. During the development of the application, we have encountered the necessity of refactoring the data to make it cleaner and removed duplicates. We made data cleaner that generates new set of nicely formed data, see the implementation in [dataimport](https://github.com/DatabaseGroup9/dataimport)._
 
 ### _Behavior of query test set?_ <br>
 
