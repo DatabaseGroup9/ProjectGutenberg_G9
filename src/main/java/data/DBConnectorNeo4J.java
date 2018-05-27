@@ -10,6 +10,8 @@ public class DBConnectorNeo4J {
     private Driver driver = null;
     //Constants
     private static final String IP = "bolt://174.138.12.213";
+    
+    //private static final String IP = "bolt://174.138.12.213";
     private static final String PORT     = ""; // best left empty for default port
     private static final String USERNAME = "neo4j";
     private static final String PASSWORD = "class";

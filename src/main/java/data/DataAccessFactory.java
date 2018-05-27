@@ -14,6 +14,8 @@ public class DataAccessFactory implements IDataAccessFactory {
                 break;
             case "mongodb":  dataAccessor = new DataAccessMongoDB();
                 break;
+            case "mysql":  dataAccessor = new DataAccessMySQL();
+                break;
             default: dataAccessor = new DataAccessStub();
                 break;
         }

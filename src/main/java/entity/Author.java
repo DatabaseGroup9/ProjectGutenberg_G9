@@ -37,6 +37,10 @@ public class Author {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public Author(String fullName) {
+        this.fullName = fullName;
+    }
     
     String authorID;
     String fullName;
