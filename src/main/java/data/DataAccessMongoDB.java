@@ -17,6 +17,7 @@ import interfaces.IDataAccessor;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
+import org.neo4j.driver.v1.StatementResult;
 
 /**
  *
@@ -37,13 +38,11 @@ public class DataAccessMongoDB implements IDataAccessor {
 
     @Override
     public List<IBook> getBooksByCityName(String cityName) throws NotFoundExceptionMapper {
-        System.out.println("THE CITY___________" + cityName + "__________________");
+        //System.out.println("THE CITY___________" + cityName + "__________________");
         try {
             List<IBook> books = new ArrayList();
             ObjectMapper mapper = new ObjectMapper();
-            MongoDatabase database = con.getDatabase(dbname);
-            MongoCollection coll = database.getCollection(col);
-            FindIterable<Document> findIterable = coll.find(in("cities.name", cityName));
+            FindIterable<Document> findIterable = getUserStory1Query(cityName);
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
                 //System.out.println("THE JSON STRING IS " + jsonStr);
@@ -76,12 +75,10 @@ public class DataAccessMongoDB implements IDataAccessor {
         try {
             List<ICity> cities = new ArrayList();
             ObjectMapper mapper = new ObjectMapper();
-            MongoDatabase database = con.getDatabase(dbname);
-            MongoCollection coll = database.getCollection(col);
-            FindIterable<Document> findIterable = coll.find(eq("bookTitle", bookTitle));
+            FindIterable<Document> findIterable = getUserStory2Query(bookTitle);
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
-                System.out.println("THE JSON STRING IS " + jsonStr);
+                //System.out.println("THE JSON STRING IS " + jsonStr);
                 IBook b = mapper.readValue(jsonStr, Book.class);
                 for (ICity c : b.getCities()) {
                     cities.add(c);
@@ -94,20 +91,18 @@ public class DataAccessMongoDB implements IDataAccessor {
         }
     }
 
-    public List<IBook> getMentionedCitiesByAuthorName(String authorName) throws NotFoundExceptionMapper {
+    public List<IBook> getMentionedCitiesByAuthorName(String authorFullName) throws NotFoundExceptionMapper {
         List<IBook> list = new ArrayList();
 
         try {
             List<IBook> books = new ArrayList();
             ObjectMapper mapper = new ObjectMapper();
-            MongoDatabase database = con.getDatabase(dbname);
-            MongoCollection coll = database.getCollection(col);
-            FindIterable<Document> findIterable = coll.find(eq("author.fullName", authorName));
+            FindIterable<Document> findIterable = getUserStory3Query(authorFullName);
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
-                System.out.println("THE JSON STRING IS " + jsonStr);
+                //System.out.println("THE JSON STRING IS " + jsonStr);
                 IBook b = mapper.readValue(jsonStr, Book.class);
-                printBook((Book) b);
+                //printBook((Book) b);
                 books.add(b);
             }
             return books;
@@ -116,100 +111,6 @@ public class DataAccessMongoDB implements IDataAccessor {
         }
     }
 
-    //------------------------------------------------Run Once For Testing Locally-------------------------------------------------------------------------
-//    private static void populateWithTestData() {
-//        try {
-//            MongoDatabase database = con.getDatabase(dbname);
-//            MongoCollection collectionOfBooks = database.getCollection(col);
-//            MongoCollection collectionOfCities = database.getCollection("cities");
-//            MongoCollection collectionOfMentions = database.getCollection("mentions");
-//
-//            //cities
-//            List<Document> cities = new ArrayList();
-//            Document city1 = new Document();
-//            city1.put("name", "Madrid");
-//            city1.put("lat", 40.41678);
-//            city1.put("lon", -3.70379);
-//            cities.add(city1);
-//            Document city2 = new Document();
-//            city2.put("name", "Toledo");
-//            city2.put("lat", 39.86283);
-//            city2.put("lon", -4.02732);
-//            cities.add(city2);
-//            Document city3 = new Document();
-//            city3.put("name", "Wiltshire");
-//            city3.put("lat", 51.34920);
-//            city3.put("lon", -1.99271);
-//            cities.add(city3);
-//
-//            collectionOfCities.insertMany(cities);
-//
-//            //books
-    //            List<Document> books = new ArrayList();
-//            Document book1 = new Document();
-//            book1.put("title", "The Three Musketeers");
-//            book1.put("author", "Alexandre Dumas");
-//            List<Document> b1cities = new ArrayList();
-//            b1cities.add(city1);
-//            b1cities.add(city2);
-//            book1.put("cities", b1cities);
-//            books.add(book1);
-//
-//            Document book2 = new Document();
-//            book2.put("title", "The Black Tulip");
-//            book2.put("author", "Alexandre Dumas");
-//            List<Document> b2cities = new ArrayList();
-//            b2cities.add(city1);
-//            book2.put("cities", b2cities);
-//            books.add(book2);
-//
-//            Document book3 = new Document();
-//            book3.put("title", "Pride and Prejudice");
-//            book3.put("author", "Jane Austen");
-//            List<Document> b3cities = new ArrayList();
-//            b3cities.add(city3);
-//            book3.put("cities", b3cities);
-//            books.add(book3);
-//
-//            //mentions
-//            List<Document> mentions = new ArrayList();
-////        I am not sure really on how should I structure the mentions
-//            Document m1 = new Document();
-//            m1.put("book", book1);
-//            m1.put("city", city1);
-//            m1.put("mentions", 56);
-//            mentions.add(m1);
-//            Document m2 = new Document();
-//            m2.put("book", book1);
-//            m2.put("city", city2);
-//            m2.put("mentions", 10);
-//            mentions.add(m2);
-//            Document m3 = new Document();
-//            m3.put("book", book2);
-//            m3.put("city", city1);
-//            m3.put("mentions", 2);
-//            mentions.add(m3);
-//            Document m4 = new Document();
-//            m4.put("book", book3);
-//            m4.put("city", city3);
-//            m4.put("mentions", 11);
-//            mentions.add(m4);
-//
-//            collectionOfBooks.insertMany(books);
-//            collectionOfMentions.insertMany(mentions);
-//
-//            System.out.println("DONE POPULATING THE DATABASE");
-//
-//        } catch (Exception e) {
-//            System.out.println("SOMETHING WENT WRONG" + e.toString());
-//        }
-//
-//    }
-//    public static void main(String[] args) {
-//        DataAccessMongoDB db = new DataAccessMongoDB();
-//        populateWithTestData();
-//        con.close();
-//    }
     @Override
     public List<IBook> getBooksByGeolocation(double lat, double lon) throws NotFoundExceptionMapper {
         List<IBook> list = new ArrayList();
@@ -217,9 +118,8 @@ public class DataAccessMongoDB implements IDataAccessor {
         try {
             List<IBook> books = new ArrayList();
             ObjectMapper mapper = new ObjectMapper();
-            MongoDatabase database = con.getDatabase(dbname);
-            MongoCollection coll = database.getCollection(col);
-            FindIterable<Document> findIterable = coll.find(in("cities.lat", lat, "cities.lon", lon)); //filter object before here how..
+            FindIterable<Document> findIterable = getUserStory4Query(lat, lon);
+            //filter object before here how..
             //FindIterable<Document> findIterable = coll.find(Filters.elemMatch("cities",in("lat",lat))); //
             for (Document document : findIterable) {
                 String jsonStr = document.toJson();
@@ -242,4 +142,33 @@ public class DataAccessMongoDB implements IDataAccessor {
             throw new NotFoundExceptionMapper(e.getMessage());
         }
     }
+
+    FindIterable<Document> getUserStory1Query(String cityName) {
+        MongoDatabase database = con.getDatabase(dbname);
+        MongoCollection coll = database.getCollection(col);
+        FindIterable<Document> findIterable = coll.find(in("cities.name", cityName));
+        return findIterable;
+    }
+     FindIterable<Document> getUserStory2Query(String bookTitle) {
+        MongoDatabase database = con.getDatabase(dbname);
+        MongoCollection coll = database.getCollection(col);
+            FindIterable<Document> findIterable = coll.find(eq("bookTitle", bookTitle));
+        return findIterable;
+    }
+
+      FindIterable<Document> getUserStory3Query(String authorFullName) {
+        MongoDatabase database = con.getDatabase(dbname);
+        MongoCollection coll = database.getCollection(col);
+        FindIterable<Document> findIterable = coll.find(eq("author.fullName", authorFullName));
+        return findIterable;
+    }
+
+       FindIterable<Document> getUserStory4Query(double lat, double lon) {
+        MongoDatabase database = con.getDatabase(dbname);
+        MongoCollection coll = database.getCollection(col);
+        FindIterable<Document> findIterable = coll.find(in("cities.lat", lat, "cities.lon", lon));
+        return findIterable;
+    }
+
+
 }
