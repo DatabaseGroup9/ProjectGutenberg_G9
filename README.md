@@ -10,11 +10,42 @@ _extra:_
 - MySQL (Relational Database)
 
 ### _How data is modeled in the database?_ <br>
-_ER Diagram:_<br>
-![alt ERDiagram](https://github.com/DatabaseGroup9/Documentation/blob/master/diagrams/Chenerdiagram2.png)
+> _Our data model is designed as shown in the ER Diagram, wherein we have 3 collections: Book, Author and City. Books can be written by multiple authors and have multiple cities mentioned._
+
+![alt ERDiagram](https://github.com/DatabaseGroup9/Documentation/blob/master/images/ER.jpg)
+
+##### In MongoDB, the document is structured like this: (JSON Format)
+```
+{ "_id" : ObjectId("5b06bc8246391031d0a72538"), 
+  "bookID" : "1257",
+  "bookTitle" : "The Three Musketeers",
+  "author" : {
+    "authorID" : "v10500468",
+    "fullName" : "Dumas, Alexandre",
+    "firstName" : "Alexandre",
+    "surName" : "Dumas",
+    "title" : "" 
+  },
+  "cities" : [{ 
+    "cityID" : "1002145",
+    "name" : "George",
+    "lat" : -33.963,
+    "lon" : 22.46173 
+   },... 
+] }
+```
+##### In Neo4J, it is structured like this:(Cypher Text)
+```
+MATCH (c:City)<-[:MENTIONS]-(b:Book)<-[:AUTHORED]-(a:Author) return c,b,a limit 1
+```
+![Neo4j Structure](https://github.com/DatabaseGroup9/Documentation/blob/master/images/graph.png)
+##### In MySQL, it is structured like this:(Database Schema Diagram)
+
 
 ### _How data is modeled in your application?_ <br>
 
+![entity](https://github.com/DatabaseGroup9/Documentation/blob/master/images/ClassDiagram_Entity.png)
+![data](https://github.com/DatabaseGroup9/Documentation/blob/master/images/ClassDiagram_Data.png)
 
 ### _How the data is imported?_ <br>
 
