@@ -40,11 +40,12 @@ MATCH (c:City)<-[:MENTIONS]-(b:Book)<-[:AUTHORED]-(a:Author) return c,b,a limit 
 ```
 ![Neo4j Structure](https://github.com/DatabaseGroup9/Documentation/blob/master/images/graph.png)
 ##### In MySQL, it is structured like this:(Database Schema Diagram)
-
+![MySQLSchemaDiagram](https://github.com/DatabaseGroup9/Documentation/blob/master/images/mysqlSchemaModelingDiagram.png)
 
 ### _How data is modeled in your application?_ <br>
-
+> _We make used of entities/Java objects to map the collections that we have in the database with its attributes as shown in the Class Diagram below. This objects are sent to the REST API and displayed in the frontend._
 ![entity](https://github.com/DatabaseGroup9/Documentation/blob/master/images/ClassDiagram_Entity.png)
+> _This is the class diagram representing the data layer of the application, wherein we make connection to the respective database and perform the query requested by the user._
 ![data](https://github.com/DatabaseGroup9/Documentation/blob/master/images/ClassDiagram_Data.png)
 
 ### _How the data is imported?_ <br>
