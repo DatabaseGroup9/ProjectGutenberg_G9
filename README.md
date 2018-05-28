@@ -48,6 +48,8 @@ MATCH (c:City)<-[:MENTIONS]-(b:Book)<-[:AUTHORED]-(a:Author) return c,b,a limit 
 > _This is the class diagram representing the data layer of the application, wherein we make connection to the respective database and perform the query requested by the user._
 ![data](https://github.com/DatabaseGroup9/Documentation/blob/master/images/ClassDiagram_Data.png)
 
+See more in-detailed implementation [here](https://github.com/DatabaseGroup9/Documentation).
+
 ### _How the data is imported?_ <br>
 > _The data was fetched from Project Gutenberg Data Collection and processed by our PGParser and extracted the relevant data for   the final project such as the book title, authors, and cities mentioned, see [PGParser](https://github.com/DatabaseGroup9/PGParser) for complete details. We created Digital Ocean droplets for each database, and imported the returned csv files from PGParser to MongoDB and Neo4J by using a Java Application project here, [parseMaster](https://github.com/DatabaseGroup9/parseMaster) and phpAdmin for MySQL. During the development of the application, we have encountered the necessity of refactoring the data to make it cleaner and removed duplicates. We made data cleaner that generates new set of nicely formed data, see the implementation in [dataimport](https://github.com/DatabaseGroup9/dataimport)._
 
@@ -68,7 +70,14 @@ N1  | MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]-(c:City) WHERE LOWE
 N2  | MATCH (b:Book)-[r:MENTIONS]->(c:City) WHERE LOWER(b.bookTitle) = LOWER($bookTitle) RETURN c| 
 N3  | MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]->(c:City) WHERE LOWER(a.fullName) = LOWER($fullName) RETURN a,b,collect(c)| 
 N4  | MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]->(c:City) WHERE c.lat = $lat AND c.lon = $lon RETURN a,b,collect(c)|
-
+***
+ID  | MySQL                                                 |
+----|---------------------------------------------------------|
+MS1  | |
+MS2  | | 
+MS3  | | 
+MS4  | |
+***
 
 #### A. Query Runtime is influenced by the DB engine <br>
 
