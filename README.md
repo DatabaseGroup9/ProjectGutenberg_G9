@@ -81,14 +81,20 @@ MS3  | "SELECT bookTitle,fullName,name,lat,lon FROM BooksTable WHERE fullName = 
 MS4  | "SELECT bookTitle,fullName,name,lat,lon FROM BooksTable WHERE lat = " + lat + " AND lon = " + lon |
 ***
 
+### Measuremet of Application Behavior
+
+https://github.com/DatabaseGroup9/Performace-Tests-With-JMeter/blob/master/DATABASE-Benchmark/BENCHMARK_BEFORE.md
+https://github.com/DatabaseGroup9/Performace-Tests-With-JMeter/blob/master/DATABASE-Benchmark/BENCHMARK_AFTER.md
+
+### Discussion
+
+Blabla
+
 #### A. Query Runtime is influenced by the DB engine <br>
 
 
 #### B. Query Runtime is influenced by the application frontend <br>
-benchmark here
 
-https://github.com/DatabaseGroup9/Performace-Tests-With-JMeter/blob/master/DATABASE-Benchmark/BENCHMARK_BEFORE.md
-https://github.com/DatabaseGroup9/Performace-Tests-With-JMeter/blob/master/DATABASE-Benchmark/BENCHMARK_AFTER.md
 
 ### _Recommendation_ <br>
 _which database engine to use in such a project for production_
