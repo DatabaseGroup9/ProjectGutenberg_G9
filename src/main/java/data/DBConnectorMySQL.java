@@ -3,6 +3,8 @@ package data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DBConnectorMySQL {
 
@@ -14,14 +16,17 @@ public class DBConnectorMySQL {
     private static final String DB = "gutenberg";
     private Connection conn = null;
 
-    public DBConnectorMySQL() throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
+    public DBConnectorMySQL() {
+        
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(IP + ":3306/" + DB, USERNAME, PASSWORD);
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
             return;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBConnectorMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

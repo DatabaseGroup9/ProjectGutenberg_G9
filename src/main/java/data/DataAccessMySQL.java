@@ -29,11 +29,12 @@ import java.util.logging.Logger;
 public class DataAccessMySQL implements IDataAccessor {
 
     private Connection conn = null;
-    private DBConnectorMySQL mysql = new DBConnectorMySQL();
+    private DBConnectorMySQL mysql = null;
     private String name = "DataAccessMySQL";
     private String tableName = "BooksTable";
 
     public DataAccessMySQL() {
+        mysql = new DBConnectorMySQL();
         conn = mysql.getConn();
     }
 
