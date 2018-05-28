@@ -98,9 +98,9 @@ Quering The Databases
 
 |   | Story 1 avg. ms |Story 2 avg. ms  | Story 3 avg. ms  | Story 4 avg. ms |
 |---|---|---|---|---|
-|  MongoDB |   |   |   |   |
-|  Neo4J | 139  |  105 | 164  | 39  |
-|  MySQL |   |   |   |   |
+|  MongoDB | 689  | 42  |  49 | 234  |
+|  Neo4J |  44  |  15 | 23  | 10  |
+|  MySQL | 22  | 5  | 16  | 8  |
 
 
 
