@@ -5,11 +5,11 @@ http://207.154.232.47:8080/group9/#!/home
 # Gutenberg-Geolocation
 
 ### _Which database engines are used?_ <br>
-- MongoDB (Document-based database). Verion 3.4.10.
-- Neo4J (Graph database). Version 3.4.0 (current latest version).
+- MongoDB (Document-based database). Verion 3.4.10. DigitalOcean 48 GB.
+- Neo4J (Graph database). Version 3.4.0 (current latest version). DigitalOcean 48 GB.
 
 _extra:_
-- MySQL (Relational Database). Version 5.7.22.
+- MySQL (Relational Database). Version 5.7.22. 48 GB
 
 ### _How data is modeled in the database?_ <br>
 > _Our data model is designed as shown in the ER Diagram, wherein we have 3 collections: Book, Author and City. Books can be written by multiple authors and have multiple cities mentioned._
@@ -89,7 +89,7 @@ MS4  | "SELECT bookTitle,fullName,name,lat,lon FROM BooksTable WHERE lat = " + l
 
 ### Discussion
 
-Blabla
+We did a performace test [before](https://github.com/DatabaseGroup9/Performace-Tests/blob/master/DATABASE-Benchmark/BENCHMARK_BEFORE.md) and [after](https://github.com/DatabaseGroup9/Performace-Tests/blob/master/DATABASE-Benchmark/BENCHMARK_AFTER.md) optimizing and fine tuning the databse queries.
 
 #### A. Query Runtime is influenced by the DB engine <br>
 
