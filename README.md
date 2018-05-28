@@ -53,7 +53,7 @@ MATCH (c:City)<-[:MENTIONS]-(b:Book)<-[:AUTHORED]-(a:Author) return c,b,a limit 
 See more in-detailed implementation [here](https://github.com/DatabaseGroup9/Documentation).
 
 ### _How the data is imported?_ <br>
-> _The data was fetched from Project Gutenberg Data Collection and processed by our PGParser that extracted the relevant data for the final project such as the book title, authors, and cities mentioned, see [PGParser](https://github.com/DatabaseGroup9/PGParser) for complete details. We created DigitalOcean droplets for each database, and imported the returned csv files from PGParser to MongoDB and Neo4J by using a Java Application project here for MongoDB, the GUI for [Neo4J](https://github.com/DatabaseGroup9/Documentation/blob/master/Neo4j.md), [parseMaster](https://github.com/DatabaseGroup9/parseMaster) and phpAdmin for MySQL. During the development of the application, we have encountered the necessity of refactoring the data to make it cleaner and removed duplicates. We made data cleaner that generates new set of nicely formed data, see the implementation in [dataimport](https://github.com/DatabaseGroup9/dataimport)._
+> _The data was fetched from Project Gutenberg Data Collection and processed by our PGParser that extracted the relevant data for the final project such as the book title, authors, and cities mentioned, see [PGParser](https://github.com/DatabaseGroup9/PGParser) for complete details. We created DigitalOcean droplets for each database, and imported the returned csv files from PGParser to MongoDB and Neo4J by using a Java Application project here for MongoDB, the GUI for [Neo4J](https://github.com/DatabaseGroup9/Documentation/blob/master/Neo4j.md), [parseMaster](https://github.com/DatabaseGroup9/parseMaster) and phpAdmin for MySQL. During the development of the application, we have encountered the necessity of refactoring the data to make it cleaner and removed duplicates, removing errornous data. We made data cleaner that generates new set of nicely formed data, see the implementation in [dataimport](https://github.com/DatabaseGroup9/dataimport)._
 
 ### _Behavior of query test set?_ <br>
 
@@ -83,7 +83,12 @@ MS4  | "SELECT bookTitle,fullName,name,lat,lon FROM BooksTable WHERE lat = " + l
 
 #### A. Query Runtime is influenced by the DB engine <br>
 
+
 #### B. Query Runtime is influenced by the application frontend <br>
+benchmark here
+
+https://github.com/DatabaseGroup9/Performace-Tests-With-JMeter/blob/master/DATABASE-Benchmark/BENCHMARK_BEFORE.md
+https://github.com/DatabaseGroup9/Performace-Tests-With-JMeter/blob/master/DATABASE-Benchmark/BENCHMARK_AFTER.md
 
 ### _Recommendation_ <br>
 _which database engine to use in such a project for production_
