@@ -241,9 +241,11 @@ db.colname.find(
 
 _Work around_
 
-For Story 4, *Given a geolocation, your application lists all books mentioning a city in vicinity of the given geolocation*, we have implemented this in MongoDB so it only return a result if the geolocation is match exaclty.
+For Story 4, *Given a geolocation, your application lists all books mentioning a city in vicinity of the given geolocation*, we have implemented this in MongoDB so it only returns a result if the geolocation is match exaclty.
 
 
+_Spacial index Neo4J_
 
+We looked into using a spatial index plugin for Neo4J. But because we preceived it as a steep learning curve to be able to implement it correctly we only query using points which is supported in Neo4J and Cypher.
 
 
