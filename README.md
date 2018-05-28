@@ -103,3 +103,120 @@ OBS Remember to use the approprite diagram notaions for documentation.
 
 ##### Additional Documentation:
 > See here: https://github.com/DatabaseGroup9
+
+
+
+
+### Problems we encounterd
+
+#### 1)Problem to create spatial index and queries in MongoDB
+
+Although we had out model structured like this in MongoDB we could net get the spatial index and queries to work. WE tried with the following queries.
+
+```/* 5 */
+{
+    "_id" : ObjectId("5b045038c7db703de897fae4"),
+    "bookID" : "3631",
+    "title" : "On the Significance of Science and Art",
+    "author" : "On the Significance of Science and Art",
+    "cities" : [ 
+        {
+            "coordinates" : [ 
+                27.81049, 
+                79.79185
+            ],
+            "type" : "Point"
+        }, 
+        {
+            "coordinates" : [ 
+                28.16951, 
+                94.8006
+            ],
+            "type" : "Point"
+        }, 
+        {
+            "coordinates" : [ 
+                -12.46113, 
+                130.84185
+            ],
+            "type" : "Point"
+        }, 
+        {
+            "coordinates" : [ 
+                50.50301, 
+                13.63617
+            ],
+            "type" : "Point"
+        }, 
+        {
+            "coordinates" : [ 
+                -32.69844, 
+                -57.62693
+            ],
+            "type" : "Point"
+        }, 
+        {
+            "coordinates" : [ 
+                8.42729, 
+                -82.43085
+            ],
+            "type" : "Point"
+        }, 
+        {
+            "coordinates" : [ 
+                26.21591, 
+                -98.32529
+            ],
+            "type" : "Point"
+        }, 
+        {
+            "coordinates" : [ 
+                54.19609, 
+                37.61822
+            ],
+            "type" : "Point"
+        }, 
+        {
+            "coordinates" : [ 
+                40.76078, 
+                -111.89105
+            ],
+            "type" : "Point"
+        }, 
+        {
+            "coordinates" : [ 
+                64.83778, 
+                -147.71639
+            ],
+            "type" : "Point"
+        }
+    ]
+}
+``` 
+
+
+```db.colname.createIndex({"cities.location":"2dsphere"})
+
+db.colname.find(
+   {
+     location:
+       { $near :
+          {
+            $geometry: { type: "Point",  coordinates: [ -73.9667, 40.78 ] },
+            $minDistance: 1000,
+            $maxDistance: 5000
+          }
+       }
+   }
+)
+
+```
+
+_Work around_
+
+For Story 4, *Given a geolocation, your application lists all books mentioning a city in vicinity of the given geolocation*, we have implemented this in MongoDB so it only return a result if the geolocation is match exaclty.
+
+
+
+
+
