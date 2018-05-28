@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/DatabaseGroup9/ProjectGutenberg_G9.svg?branch=master)](https://travis-ci.org/DatabaseGroup9/ProjectGutenberg_G9)
 
+### Link to the application:
+http://207.154.232.47:8080/group9/#!/home
 # Gutenberg-Geolocation
 
 ### _Which database engines are used?_ <br>
