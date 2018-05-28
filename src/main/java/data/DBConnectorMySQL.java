@@ -1,7 +1,7 @@
 package data;
 
-import java.sql.DriverManager;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnectorMySQL {
@@ -14,7 +14,8 @@ public class DBConnectorMySQL {
     private static final String DB = "gutenberg";
     private Connection conn = null;
 
-    public DBConnectorMySQL() {
+    public DBConnectorMySQL() throws ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
         try {
             conn = DriverManager.getConnection(IP + ":3306/" + DB, USERNAME, PASSWORD);
         } catch (SQLException e) {
