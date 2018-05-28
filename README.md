@@ -5,11 +5,11 @@ http://207.154.232.47:8080/group9/#!/home
 # Gutenberg-Geolocation
 
 ### _Which database engines are used?_ <br>
-- MongoDB (Document-based database). Verion 3.4.10. DigitalOcean 48 GB.
-- Neo4J (Graph database). Version 3.4.0 (current latest version). DigitalOcean 48 GB.
+- MongoDB (Document-based database). Verion 3.4.10. Hadware DigitalOcean 48 GB.
+- Neo4J (Graph database). Version 3.4.0 (current latest version). Hardware DigitalOcean 48 GB.
 
 _extra:_
-- MySQL (Relational Database). Version 5.7.22. 48 GB
+- MySQL (Relational Database). Version 5.7.22. Hardware 48 GB.
 
 ### _How data is modeled in the database?_ <br>
 > _Our data model is designed as shown in the ER Diagram, wherein we have 3 collections: Book, Author and City. Books can be written by multiple authors and have multiple cities mentioned._
