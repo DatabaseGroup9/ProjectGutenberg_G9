@@ -136,7 +136,7 @@ OBS Remember to use the approprite diagram notaions for documentation.
 
 ### Problems we encounterd
 
-#### 1)Problem to create spatial index and queries in MongoDB
+_1)Problem to create spatial index and queries in MongoDB_
 
 Although we had out model structured like this in MongoDB we could net get the spatial index and queries to work. WE tried with the following queries.
 
