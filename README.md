@@ -3,11 +3,11 @@
 # Gutenberg-Geolocation
 
 ### _Which database engines are used?_ <br>
-- MongoDB (Document-based database)
-- Neo4J (Graph database)
+- MongoDB (Document-based database). Verion 3.4.10.
+- Neo4J (Graph database). Version 3.4.0 (current latest version).
 
 _extra:_
-- MySQL (Relational Database)
+- MySQL (Relational Database). Version 5.7.22.
 
 ### _How data is modeled in the database?_ <br>
 > _Our data model is designed as shown in the ER Diagram, wherein we have 3 collections: Book, Author and City. Books can be written by multiple authors and have multiple cities mentioned._
@@ -51,7 +51,7 @@ MATCH (c:City)<-[:MENTIONS]-(b:Book)<-[:AUTHORED]-(a:Author) return c,b,a limit 
 See more in-detailed implementation [here](https://github.com/DatabaseGroup9/Documentation).
 
 ### _How the data is imported?_ <br>
-> _The data was fetched from Project Gutenberg Data Collection and processed by our PGParser and extracted the relevant data for   the final project such as the book title, authors, and cities mentioned, see [PGParser](https://github.com/DatabaseGroup9/PGParser) for complete details. We created Digital Ocean droplets for each database, and imported the returned csv files from PGParser to MongoDB and Neo4J by using a Java Application project here, [parseMaster](https://github.com/DatabaseGroup9/parseMaster) and phpAdmin for MySQL. During the development of the application, we have encountered the necessity of refactoring the data to make it cleaner and removed duplicates. We made data cleaner that generates new set of nicely formed data, see the implementation in [dataimport](https://github.com/DatabaseGroup9/dataimport)._
+> _The data was fetched from Project Gutenberg Data Collection and processed by our PGParser that extracted the relevant data for the final project such as the book title, authors, and cities mentioned, see [PGParser](https://github.com/DatabaseGroup9/PGParser) for complete details. We created DigitalOcean droplets for each database, and imported the returned csv files from PGParser to MongoDB and Neo4J by using a Java Application project here for MongoDB, the GUI for [Neo4J(https://github.com/DatabaseGroup9/Documentation/blob/master/Neo4j.md), [parseMaster](https://github.com/DatabaseGroup9/parseMaster) and phpAdmin for MySQL. During the development of the application, we have encountered the necessity of refactoring the data to make it cleaner and removed duplicates. We made data cleaner that generates new set of nicely formed data, see the implementation in [dataimport](https://github.com/DatabaseGroup9/dataimport)._
 
 ### _Behavior of query test set?_ <br>
 
