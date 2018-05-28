@@ -93,8 +93,35 @@ Blabla
 #### A. Query Runtime is influenced by the DB engine <br>
 
 
+
+Quering The Databases
+
+|   | Story 1 avg. ms |Story 2 avg. ms  | Story 3 avg. ms  | Story 4 avg. ms |
+|---|---|---|---|---|
+|  MongoDB |   |   |   |   |
+|  Neo4J | 139  |  105 | 164  | 39  |
+|  MySQL |   |   |   |   |
+
+
+
 #### B. Query Runtime is influenced by the application frontend <br>
 
+Quering The REST API
+
+|   | Story 1 avg. ms |Story 2 avg. ms  | Story 3 avg. ms  | Story 4 avg. ms |
+|---|---|---|---|---|
+|  MongoDB | 5680  | 349  | 1072  | 3944  |
+|  Neo4J |  1462 | 327  |  736 | 601  |
+|  MySQL |  45 |  39 |  394 | 215  |
+Application Overhead 
+
+*REST API time - query in the database*
+
+|   | Story 1 avg. ms |Story 2 avg. ms  | Story 3 avg. ms  | Story 4 avg. ms |
+|---|---|---|---|---|
+|  MongoDB |   |   |   |   |
+|  Neo4J | 1323  |  222 | 572  | 562  |
+|  MySQL |   |   |   |   |
 
 ### _Recommendation_ <br>
 _which database engine to use in such a project for production_
