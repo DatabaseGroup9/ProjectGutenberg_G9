@@ -15,8 +15,6 @@ public class DataAccessFactoryTest {
         IDataAccessor dataAccessor = iDataAccessFactory.getDataAccessor("stub");
         assertTrue(dataAccessor.getClass().getName().equals("data.DataAccessStub"));
     }
-
-    @Ignore
     @Test
     public void getDataAccessorTestNeo4J() {
         IDataAccessFactory iDataAccessFactory = new DataAccessFactory();

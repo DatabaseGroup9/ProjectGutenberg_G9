@@ -19,6 +19,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Ignore;
 
+@Ignore
 @RunWith(JUnitParamsRunner.class)
 public class MySQLUnitTest {
 
