@@ -94,6 +94,9 @@ We did a performace test [before](https://github.com/DatabaseGroup9/Performace-T
 #### A. Query Runtime is influenced by the DB engine <br>
 
 
+[log_performanceTest_MongoDB](https://github.com/DatabaseGroup9/Performace-Tests/blob/master/PerformanceTestMongoDB.txt)
+[log_performanceTest_Neo4J](https://github.com/DatabaseGroup9/Performace-Tests/blob/master/PerformanceTestNeo4j.txt)
+[log_performanceTest_MySql](https://github.com/DatabaseGroup9/Performace-Tests/blob/master/PerformanceTestMySQL.txt)
 
 Quering The Databases
 
