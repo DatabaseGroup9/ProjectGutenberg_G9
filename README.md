@@ -89,7 +89,7 @@ MS4  | "SELECT bookTitle,fullName,name,lat,lon FROM BooksTable WHERE lat = " + l
 
 ### Discussion
 
-We did a performace test [before](https://github.com/DatabaseGroup9/Performace-Tests/blob/master/DATABASE-Benchmark/BENCHMARK_BEFORE.md) and [after](https://github.com/DatabaseGroup9/Performace-Tests/blob/master/DATABASE-Benchmark/BENCHMARK_AFTER.md) optimizing and fine tuning the databse queries.
+We did a performace test [before](https://github.com/DatabaseGroup9/Performace-Tests/blob/master/DATABASE-Benchmark/BENCHMARK_BEFORE.md) and [after](https://github.com/DatabaseGroup9/Performace-Tests/blob/master/DATABASE-Benchmark/BENCHMARK_AFTER.md) optimizing and fine tuning the database queries by [profiling the queries](https://github.com/DatabaseGroup9/Performace-Tests/blob/master/DATABASE-Benchmark/PROFILING_NEO4J.md).
 
 #### A. Query Runtime is influenced by the DB engine <br>
 
