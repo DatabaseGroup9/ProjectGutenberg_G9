@@ -148,7 +148,7 @@ We have to convert the JSON document into Java which is not very performant. Mon
 
 From the performance test its clear that MySQL have the best performance. To guarantee a smooth user-experience, its important to consider which type of database architique one will chose to a procject, and it depends very on the datatype your project will have. 
 In this case we have implemented 3 different databases, MongoDB, Neo4J and MySQL.
-MongoDB is documented orientared database, and it is visible that performancewise MongoDB is very behind, thought the collection is already indexed, still MongoDB cant follow MySQL performancewise.
+MongoDB is documented oriented database, and it is visible that performancewise MongoDB is very behind, thought the collection is already indexed, still MongoDB cant follow MySQL performancewise.
 
 So we can conclude from performance that we would like to recommend MySQL.
 But if we look onto data and their relationship, Neo4j will be the winner. The Gutenberg project contain a huge data, but their relationship to each other is yet bigger, the MySQL table will use expensive ressources on JOIN on tables, while it makes more sense to use Neo4j becuase the core ressource behind Neo4j is the ability to show relationship between Nodes.
