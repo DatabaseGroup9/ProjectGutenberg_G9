@@ -134,6 +134,9 @@ Application Overhead
 
 We can conclude that the Application has an fair amount of overhead which we believe has to do with processing the data returned from the databases.
 
+_RiakKV_
+We tried to implement RiakKV/RiakSearch as a backend to the project, but configuration proved difficult, and we were unable to even add data to the database.
+
 _MongoDB_
 
 Especially in MongoDB ee can see that in our application the overhead is really huge for MongoDB. 
