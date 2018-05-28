@@ -129,12 +129,12 @@ Application Overhead
 
 ### Comments to the results
 
-We can conclude that the Application has an overhead which we believe has to do with processing the data returned from the databases.
+We can conclude that the Application has an fair amount of overhead which we believe has to do with processing the data returned from the databases.
 
 _MongoDB_
 
-*We can see that in our application overhead is really huge for MongoDB. 
-We have to convert the JSON document into Java which is not very performant. MongoDB is popular and has it’s strength where the conversion of format is not necessary such as JavaScript Applications.*
+Especially in MongoDB ee can see that in our application the overhead is really huge for MongoDB. 
+We have to convert the JSON document into Java which is not very performant. MongoDB is popular and has it’s strength where the conversion of format is not necessary such as JavaScript Applications. But we can conclude that for choosing a database for Java it might not be the best option
 
 *It employs the format of key-value pairs, here called document store. Document stores in MongoDB are created is stored in BSON files which are, in fact, a little-modified version of JSON files and hence all JS are supported.*
 
