@@ -83,8 +83,8 @@ MS4  | "SELECT bookTitle,fullName,name,lat,lon FROM BooksTable WHERE lat = " + l
 
 ### Measuremet of Application Behavior
 
-https://github.com/DatabaseGroup9/Performace-Tests-With-JMeter/blob/master/DATABASE-Benchmark/BENCHMARK_BEFORE.md
-https://github.com/DatabaseGroup9/Performace-Tests-With-JMeter/blob/master/DATABASE-Benchmark/BENCHMARK_AFTER.md
+* https://github.com/DatabaseGroup9/Performace-Tests-With-JMeter/blob/master/DATABASE-Benchmark/BENCHMARK_BEFORE.md
+* https://github.com/DatabaseGroup9/Performace-Tests-With-JMeter/blob/master/DATABASE-Benchmark/BENCHMARK_AFTER.md
 
 ### Discussion
 
