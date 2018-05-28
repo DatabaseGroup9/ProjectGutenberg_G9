@@ -119,9 +119,9 @@ Application Overhead
 
 |   | Story 1 avg. ms |Story 2 avg. ms  | Story 3 avg. ms  | Story 4 avg. ms |
 |---|---|---|---|---|
-|  MongoDB |   |   |   |   |
+|  MongoDB | 4991  | 307  | 1023  | 3710  |
 |  Neo4J | 1323  |  222 | 572  | 562  |
-|  MySQL |   |   |   |   |
+|  MySQL | 23  | 34  | 378  | 207  |
 
 ### _Recommendation_ <br>
 _which database engine to use in such a project for production_
