@@ -146,12 +146,12 @@ We have to convert the JSON document into Java which is not very performant. Mon
 
 ### _Recommendation_ <br>
 
-From the performance test its clear that MySQL have the best performance. To guarantee a smooth user-experience, its important to consider which type of database architique one will chose to a procject, and it depends very on the datatype your project will have. 
+From the performance tests it's clear that MySQL has the best performance. To guarantee a smooth user-experience, its important to consider which type of database architique one will chose for a project, and it depends very on the datatype your project will have. 
 In this case we have implemented 3 different databases, MongoDB, Neo4J and MySQL.
-MongoDB is documented oriented database, and it is visible that performancewise MongoDB is very behind, thought the collection is already indexed, still MongoDB cant follow MySQL performancewise.
+MongoDB is documented oriented database, and it is visible that performancewise MongoDB is very behind, thought the collection is already indexed, still MongoDB cant follow MySQL performancewise. However, it is possible that this indexing could be done better on the top layer of a collection, rather than on nested collections.
 
-So we can conclude from performance that we would like to recommend MySQL.
-But if we look onto data and their relationship, Neo4j will be the winner. The Gutenberg project contain a huge data, but their relationship to each other is yet bigger, the MySQL table will use expensive ressources on JOIN on tables, while it makes more sense to use Neo4j becuase the core ressource behind Neo4j is the ability to show relationship between Nodes.
+We can conclude from performance that we would like to recommend MySQL.
+But if we look onto data and their relationship, Neo4j will be the winner. The Gutenberg project contain a huge data, but their relationship to each other is yet bigger, the MySQL table will use expensive ressources on JOIN on tables, while it makes more sense to use Neo4j because the core resource behind Neo4j is the ability to show relationship between Nodes. Also, the fact that Neo4J is made for these queries would make maintenance easier, and lessen the chance of later running into a feature that's impossible to implement. With its limitations, this is a real risk with MongoDB.
 
 
 ##### Additional Documentation:
