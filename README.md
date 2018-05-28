@@ -129,7 +129,17 @@ Application Overhead
 
 ### Comments to the results
 
-We can conslude that the Application has an overead which we belive has to do with processig the data returned from the databases. Becuase of how we have modeled the data in MongoDB there is more data to be processed in bytes than for example MySQL. This can be a reason for the huge query times for MongoDB.
+We can conclude that the Application has an overhead which we believe has to do with processing the data returned from the databases.
+
+_MongoDB_
+
+*We can see that in our application overhead is really huge for MongoDB. 
+We have to convert the JSON document into Java which is not very performant. MongoDB is popular and has it’s strength where the conversion of format is not necessary such as JavaScript Applications.*
+
+*It employs the format of key-value pairs, here called document store. Document stores in MongoDB are created is stored in BSON files which are, in fact, a little-modified version of JSON files and hence all JS are supported.*
+
+*Because of this, it is frequently used for Node.js projects. Moreover, JSON facilitates the exchange of data between web apps and servers in human-readable format.* [source](https://www.simform.com/mongodb-vs-mysql-databases/)
+
 
 ### _Recommendation_ <br>
 _which database engine to use in such a project for production_
