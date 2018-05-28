@@ -274,6 +274,6 @@ For Story 4, *Given a geolocation, your application lists all books mentioning a
 
 _Spacial index Neo4J_
 
-We looked into using a spatial index plugin for Neo4J. But because we preceived it as a steep learning curve to be able to implement it correctly we only query using points which is supported in Neo4J and Cypher.
+We looked into using a spatial index plugin for Neo4J. But because we preceived it as a steep learning curve to be able to implement it correctly we only query using points which is supported in Neo4J and Cypher. This does result in low performance however, since without indexes, Neo4J has to iterate over our nodes, making range queries much slower than they need to be.
 
 
