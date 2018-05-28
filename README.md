@@ -113,6 +113,8 @@ Quering The REST API
 |  MongoDB | 5680  | 349  | 1072  | 3944  |
 |  Neo4J |  1462 | 327  |  736 | 601  |
 |  MySQL |  45 |  39 |  394 | 215  |
+|  Stub |  61 |  36 |  42 | 41  |
+
 Application Overhead 
 
 *REST API time - query in the database*
@@ -123,8 +125,14 @@ Application Overhead
 |  Neo4J | 1323  |  222 | 572  | 562  |
 |  MySQL | 23  | 34  | 378  | 207  |
 
+
+### Comments to the results
+
+We can conslude that the Application has an overead which we belive has to do with processig the data returned from the databases. Becuase of how we have modeled the data in MongoDB there is more data to be processed in bytes than for example MySQL. This can be a reason for the huge query times for MongoDB.
+
 ### _Recommendation_ <br>
 _which database engine to use in such a project for production_
+
 
 OBS Remember to use the approprite diagram notaions for documentation.
 
