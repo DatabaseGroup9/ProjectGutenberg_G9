@@ -73,10 +73,10 @@ N4  | MATCH (a:Author)-[ra:AUTHORED]->(b:Book)-[r:MENTIONS ]->(c:City) WHERE c.l
 ***
 ID  | MySQL                                                 |
 ----|---------------------------------------------------------|
-MS1  | |
-MS2  | | 
-MS3  | | 
-MS4  | |
+MS1  | "SELECT bookTitle,fullName FROM BooksTable WHERE name = '" + city + "'" |
+MS2  | "SELECT name,lat,lon FROM BooksTable WHERE bookTitle = '" + bookTitle + "'"| 
+MS3  | "SELECT bookTitle,fullName,name,lat,lon FROM BooksTable WHERE fullName = '" + authorFullName + "'" | 
+MS4  | "SELECT bookTitle,fullName,name,lat,lon FROM BooksTable WHERE lat = " + lat + " AND lon = " + lon |
 ***
 
 #### A. Query Runtime is influenced by the DB engine <br>
